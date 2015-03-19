@@ -1,7 +1,7 @@
 Macintosh Instructions
 ====
 
-You must be running Mac OS 10.8 Mountain Lion or Mac OS 10.9 Mavericks. Check what version of the Mac OS you have installed by clicking on the Apple menu item at the top left of your screen and selecting *About this Mac*.
+You must be running Mac OS 10.8 Mountain Lion or better, including Yosemite. Check what version of the Mac OS you have installed by clicking on the Apple menu item at the top left of your screen and selecting *About this Mac*.
 
 If you must upgrade your computer, follow the instructions at [apple.com/osx/how-to-upgrade](http://www.apple.com/osx/how-to-upgrade/).
 
@@ -29,7 +29,7 @@ The Macintosh comes with a built-in command line interface called the *Terminal*
 
 Install Apple's Command Line Tools: Instructions vary depending on which version of the Mac OS you are using. First try typing `gcc` at the command line. If a dialog box appears for installing the command line tools, *Install* them. You do not need to Install Xcode.
 
-If the dialog box does not appear or you get an '*command not found*' error, download one of the following installers depending on your version of Mac OS. Double-click the completed download to install the files:
+If the dialog box does not appear or you get an '*command not found*' error, it may be because you are running a slightly older version of the Mac OS. Download one of the following installers depending on your version of Mac OS. Double-click the completed download to install the files:
 
 - Mac OS 10.9: [Command Line Utilities for Mac OS 10.9 Mavericks](https://s3.amazonaws.com/okcoders/command_line_tools_for_osx_mavericks_april_2014.dmg) 
 - Mac OS 10.8: [Command Line Utilities for Mac OS 10.8 Mountain Lion](https://s3.amazonaws.com/okcoders/command_line_tools_for_osx_mountain_lion_april_2014.dmg)
