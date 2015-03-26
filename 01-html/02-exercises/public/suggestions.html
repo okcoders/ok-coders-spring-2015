@@ -29,15 +29,22 @@
     <!-- In this section, create a form that allows people to send questions to the customer service department of your online business. Your form should have text inputs for a person's name and email address as well as a dropdown list (select tag) for the type of question [Bug Report, Feature Request, Sales, Other] and a text area for the question itself.
 
     Each element of the form should be on it's own line, and each element should have a label identifying what it is, e.g. Name, Email, Query, and Question. Add an action to the form that points to this page, and add a Submit button that triggers the action. Naturally, the form won't do anything except  reload the page, but it's a start! -->
-
-    Name
-
-    Email
-
-    Query
-
-    Question
-
+<form action="https://github.com/okcoders/ok-coders-spring-2015/blob/master/01-html/02-exercises/public/suggestions.html">
+    Name <input type="text">
+<br>
+    Email <input type="text">
+<br>
+    Query <select>
+            <option>Bug Report</option>
+            <option>Feature Request</option>
+            <option>Sales</option>
+            <option>Other</option>
+    </select>
+<br>
+    Question <input type="text">
+    <br>
+    <input type="submit" value="Submit">
+</form>
   </section>
 
 </body>
