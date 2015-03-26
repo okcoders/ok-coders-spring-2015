@@ -3,6 +3,10 @@ OK Coders: Lesson 4 Exercises
 
 For these exercises you'll be working with the files in the public directory in this folder. There is an HTML file for each section of this lesson material. Inside those file you'll find a `script` tag with additional instructions. Fill out the `script` tag with your JavaScript.
 
+Also be sure to continue reading and working throught the exercises in Eloquent JavaScript:
+
+[Eloquent JavaScript](http://eloquentjavascript.net/)
+
 ## The JavaScript Console
 
 You'll be logging to the console for all of these exercises. Every web browser has a *console* with an interactive JavaScript REPL (read-evaluate-print-loop) where we can also log messages from our own JavaScript programs. For example, we can print out the value of a variable to the console. Because we can check the value of variables like this, the console helps us *debug* our programs when we run into problems.
@@ -50,14 +54,10 @@ var name = "Ada";
 console.log( name );
 ```
 
-## Exercise 1: Introduction to JavaScript
+## Exercise 1: Variables and Values
 
-...
+The variables.html file includes exercises to give you practice with values, expressions and variables.
 
-## Exercise 2: Variables and Values
+## Exercise 2: Program Structure
 
-...
-
-## Exercise 3: Program Structure
-
-...
+The second set of exercises in structure.html introduces more complex statements and gives you practice with those statements and the expressions they require.
