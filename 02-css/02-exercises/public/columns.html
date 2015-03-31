@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Columns</title>
+	
+	<!-- what does normalize.css do? try commenting out the line to see the changes -->
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<style type="text/css">
+
+	div {
+		border: 1px dotted #aaa;
+		margin: 10px;
+		text-align: center;
+	}
+
+	/* what happens if you move the container selected above div? Why? */
+
+	.container {
+		border: none;
+		margin: 0;
+	}
+
+	/* add your style definitions here */
+
+	</style>
+</head>
+<body>
+
+	<!--
+	In the great stone age of html development, coders used tables to lay out their pages.
+	Now, we have powerful css styling that gives us precise control over the layout of 
+	a page. We're going to put that to use in this file.
+
+	A common page layout is to have a navigation bar at the top of the page, a sidebar
+	on the left or right side of the page alongside the main content area, and a footer
+	at the bottom of the page.
+
+	I've laid out the html stucture that supports this formatting in the file below.
+	Your job is to add css to the style definition in the documnent head that produces
+	a layout with the following specifications:
+
+	|===================================================|
+	|		Navbar: fixed to top of page, height: 48px			|
+	|===================================================|
+	|								|																		|
+	|								|																		|
+	|								|																		|
+	|		Sidebar 		|							Content 							|
+	| Width: 200px 	|				Width: remaining space			|
+	| 							|						Height: 800px						|
+	| 							|																		|
+	|								|																		|
+	|								|																		|
+	|								|																		|
+	|								|																		|
+	|								|																		|
+	|===================================================|
+	|	 Footer: height: 100px, clears sidebar & content 	|
+	|===================================================|
+	
+	
+	To complete this exercise you will need to use the float and clear properties
+
+	You might want to add some background color to each part of the page so you can
+	clearly see the different sections.
+
+	What would you need to change in order to place the sidebar on the right side of the page?
+	Hint: you don't have to change the html!
+
+	Combine what you leanred from the navbar exercise to give your page a real navbar
+
+	-->
+
+	<div class="navbar">
+		<nav>
+			Navbar
+		</nav>
+	</div>
+
+	<div class="container">
+
+		<div class="sidebar">
+			Sidebar
+		</div>
+
+		<div class="content">
+			Content
+		</div>
+
+	</div>
+
+	<div class="footer">
+		Footer
+	</div>
+
+</body>
+</html>
