@@ -11,7 +11,9 @@ Together, statements are the instructions to a computer that make up a program.
 
 Our programs are about to become more complex. Instead of entering them into node one line at a time, let's put them into a javascript file and use node to execute the file.
 
-`cd` into the directly where you'd like your javascript file to reside and create a new empty file with `touch`. Issue these commands at the bash prompt, not in node:
+Alternately you may write your programs inside a `<script> ... </script>` block inside a web page and view the webpage in the browser. Calls to `console.log()` will print in the browser console, so be sure you've activated the developer tools!
+
+If you are using node, `cd` into the directly where you'd like your javascript file to reside and create a new empty file with `touch`. Issue these commands at the bash prompt, not in node:
 
 	$ mkdir javascripts
 	$ cd javascripts/
