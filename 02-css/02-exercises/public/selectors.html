@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Selectors</title>
+  
+  <!-- what does normalize.css do? try commenting out the line to see the changes -->
+  <link rel="stylesheet" type="text/css" href="css/normalize.css">
+  <style type="text/css">
+
+    /*
+    Review the HTML document below, then style it according to the following instructions.
+    Do not change the HTML or add any classes or ids to it! Only add CSS definitions
+    here.
+    */
+
+    body {
+      font-size: 12px;
+    }
+
+    /* 
+    The most basic selector targets html tags and is just the name of the tag.
+    Target the html tag and add a 50px margin to the top and bottom and a
+    10px margin to the sides.
+    */
+
+    /*
+    You can override built-in styling. Style the tag that makes links so
+    that it no longer has an underline and the text appears in a normal black
+    color.
+    */
+
+    /*
+    Pseudo-selectors let you target a limited subset of a specific tag and
+    even respond to events on the page. It's getting close to programming.
+    Now use the hover pseudo-selector so that link elements turn blue only
+    when you mouse over them. But still no underline.
+    */
+
+    /* 
+    Tags can target classes, and classes can be applied to many tags.
+    Target the `big` class and set the font size to 32 pixels. 
+    */
+
+    /*
+    Target the `container` class so that it has a width of 960 pixels and its
+    content is centered on the page. Do not center the text! Center the div.
+    */
+
+    /* 
+    Tags can target id's, but an id must be unique to a single element.
+    Target the `navigation` id and give it some margin, some padding and a nice
+    background color
+    */
+
+    /*
+    id's are not classes! Notice that we have a `footer` classe and a `footer` id.
+    Even so, an html element can have both an id and a class, and the can be the same!
+  
+    Target the `footer` class so that it has a top margin of 20 pixels.
+    Target the `footer` id so that it has top padding of 10pixels and a solid black border on the top.
+    */
+
+    /*
+    You can target more than one selector at a time using commas, e.g. `big, small {...}`
+    Target the h1 and h3 tags in the same line and set the text color to green.
+    */
+
+    /*
+    You can combine selectors to target highly specific subsets. Using the period with no spaces
+    between selectors, you can target elements that match both selectors. For example, you
+    can target only those paragraphs with the foo class using `p.foo`
+
+    Target only the section whose id is `latin-text` and set the text color to a slighly lighter
+    black. Do the same for the section whose id is `english-text`. Use the selector combination with
+    the period (.)
+    */
+
+    /*
+    You can target descendants of a selector by adding a space between the selectors.
+    Remember that html is a tree, so a descendant is a node or leaf below the an element.
+    For example, the `p span` selector targets only those spans anywhere inside a paragraph.
+
+    Target only those paragraphs that are inside a section. Set their font to a serif style.
+    */
+
+    /*
+    We can be even more specific with our descendant targets. We can target only the direct
+    children of an element, rather than all of them. Direct childer are one node lower, rather than
+    indefinitely lower. We use the greater than symbol (>) to do this.
+
+    Notice that in the English section we have two h3's, one of them in the section itself, and one
+    of them in a div inside the section. Target only the first h3 in that section and set the text 
+    color to be red.
+    */
+
+    /*
+    We can target siblings in addition to children. Siblings live on the same tree level. They
+    are immediate descendants of the same node. We target siblings with the plus symbol (+),
+    and it matches those elements of the second selector that are siblings of the first selector.
+
+    Target the second paragraph in the latin text using the sibling selector and italicize it.
+    */
+
+    /*
+    We've already seen pseudo-selectors that let us control when we hover over a link.
+    We can use the hover pseudo-selector anywhere!
+
+    Add a selector so that when you hover over any pargaph, it turns the background color
+    a light grey
+    */
+
+    /*
+    Other pseudo-selectors let us target specific children of an element. Find them on the
+    internet, and target the first child of the ul inside our navigation and set give it 
+    a font size 1.5 times larger than its default (use a relative font size).
+    */
+
+    /*
+    We can combine selectors in very large chains to target extremely specific parts of our
+    html, like this:
+    */
+
+    section#latin-text div.footer > span {
+      display: inline-block;
+      padding: 10px 0;
+      width: 100%;
+
+      transition-delay: 100ms;
+      transition-duration: 1000ms;
+      -webkit-transition-delay: 100ms;
+      -webkit-transition-duration: 1000ms;
+
+      background-color: white;
+      color: black;
+    }
+
+    section#latin-text div.footer > span:hover {
+      
+      transition-delay: 100ms;
+      transition-duration: 1000ms;
+      -webkit-transition-delay: 100ms;
+      -webkit-transition-duration: 1000ms;
+      
+      background-color: red;
+      color: white;
+    }
+
+    /*
+    Add an html element to a page that this pair of selectors targets. Give it some text
+    content, and see what it does!
+
+    What's up with this transition stuff? Why do we duplicate it with a -webkit- prefix?
+    */
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="money"></div>
+  <div class="container"></div>
+
+  <div class="container money">
+
+    <nav id="navigation">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Latin Lovers</a></li>
+        <li><a href="#">English Enthusiasts</a></li>
+        <li><a href="http://news.google.com">News</a></li>
+      </ul>
+    </nav> <!-- /navigation -->
+
+    <h1>Lorem Ipsum</h1>
+
+    <section id="latin-text">
+
+      <h3>Original Latin</h3>
+
+      <p>
+        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      </p>
+      <p> <!--second paragraph -->
+        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+      </p>
+
+      <div class="footer">
+        <!-- in case we wanted something else here -->
+        <span>some red text</span>
+      </div>
+
+    </section> <!-- /latin -->
+
+    <section id="english-text">
+
+      <h3>English Translations</h3>
+
+      <p>
+        "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?"
+      </p>
+
+      <div class="footer">
+        <h3>Learn More</h3>
+      </div>
+
+    </section> <!-- /english -->
+
+    <h3>Other stuff</h3>
+
+    <section>
+      <p>Neutral ground! None of your section styling should apply here.</p>
+    </section>
+
+    <p>Stray paragraph! Your paragaph styling shouldn't apply here! Don't let it apply here!</p>
+
+    <div id="footer">
+      <span class="big">Courtesy</span> <a href="http://www.lipsum.com/">http://www.lipsum.com/</a>
+    </div>
+
+  </div>
+
+</body>

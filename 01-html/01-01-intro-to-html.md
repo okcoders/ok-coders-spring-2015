@@ -59,24 +59,24 @@ HTML tags can include *attributes* that add information about the tag. Some attr
 
 An attribute appears in a tag as an `attr='value'` pair, or the attribute name followed by an equal sign followed by its value in quotes. Single and double quotes are both allowed, but use one or the other consistently:
 
-	<tagname attr='value'> ... </tagname>
+	<tagname attr="value"> ... </tagname>
 	
 For example, the `a` tag requires the `href` attribute to specify its link destination:
 
-	<a href='http://news.google.com'>link to google news</a>
+	<a href="http://news.google.com">link to google news</a>
 
 Similarly, the `input` tag requires the `type` attribute to identify what kind of input it is:
 
-	<input type='text'>
-	<input type='email'>
+	<input type="text">
+	<input type="email">
 
 A tag can have more than one attribute. Separate the attributes with a space. `id` is commonly used to identify and element and `class` to assign it to a stylistic category:
 
-	<p id='main-content' class='post'> ... </p>
+	<p id="main-content" class="post"> ... </p>
 	
 You may create your own attributes and store whatever you like in them. Custom attributes commonly begin with the `data-` prefix to distinguish them from those included in the html specification:
 
-	<div data-person='philip dow'> ... </div>
+	<div data-person="philip dow"> ... </div>
 
 **Hierarchy**
 
@@ -181,12 +181,12 @@ The relationship between block and inline elements is complex. Generally, block 
 	
 	<div>
 		<p>A paragraph in a div</p>
-		<a href='http://google.com'>A link to google in a div</a>
+		<a href="http://google.com">A link to google in a div</a>
 	</div>
 	
 	<!-- comment: the strong tag can contain em and links -->
 	
-	<strong><em><a href='http://google.com'>A strong, emphasized link to google</em></strong>
+	<strong><em><a href="http://google.com">A strong, emphasized link to google</em></strong>
 
 Making the matter more complex, there is a hierarchy among block level elements. Not all block level elements can contain every other block level element. For example, a `div` may contain a `p`, but a `p` may not contain a `div`.
 
@@ -226,7 +226,7 @@ The generic block level element. Blocks off content without identifying it as a 
 Identifies paragraphs of text. Block level. Often contains inline elements.
 
 	<p>Some text in a short paragaph. But more than one sentence.</p>
-	<p>Let me tell you about an <strong>awesome</strong> site: <a href='http://okcoders.com'>OK Coders</a></p>
+	<p>Let me tell you about an <strong>awesome</strong> site: <a href="http://okcoders.com">OK Coders</a></p>
 	
 ### strong
 
@@ -244,19 +244,19 @@ Emphasize a section of text. Inline. Typically rendered *italicized* in browsers
 
 The generic inline level element. No style by default. Add `id` and `class` attributes to give it style.
 
-	<span class='red'>Might appear red if the css is defined</span>
+	<span class="red">Might appear red if the css is defined</span>
 	
 ### a
 
 The anchor tag, or all important link. Inline. Include the `href` attribute to target a page. The text content will appear in the link style, often blue and underlined by default:
 
-	<a href='http://okcoders.com'>Link to OK Coders</a>
+	<a href="http://okcoders.com">Link to OK Coders</a>
 
 ### img
 
 Add an image to a page. Self-contained. Inline, surprisingly, which results in the line height of the surrounding text to grow to accomodate the image's height. Include the `src` attribute to identify the image resource:
 
-	<img src='https://i.imgur.com/IU0AZOp.jpg'>
+	<img src="https://i.imgur.com/IU0AZOp.jpg">
 
 ### ul, li
 
@@ -295,13 +295,13 @@ Input elements for forms and their labels. Inline. Input elements are self-conta
 
 	<form>
 		<label>Name:</label>
-		<input type='text'>
+		<input type="text">
 		
 		<label>Email:</label>
-		<input type='email'>
+		<input type="email">
 				
 		<label>Password:</label>
-		<input type='password'>
+		<input type="password">
 	</form>
 
 Forms probably involve the most complex html. Refer to MDN for more information about form input: [Input Elements at MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input)
