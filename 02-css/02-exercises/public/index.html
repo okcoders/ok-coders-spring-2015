@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Navigation Bar</title>
+
+  <!-- what does normalize.css do? try commenting out the line to see the changes -->
+  <link rel="stylesheet" type="text/css" href="css/normalize.css">
+  <style type="text/css">
+
+    /* make sure you understand what the body and #content styling is doing! */
+
+    body {
+      margin: 10px auto;
+      max-width: 800px;
+      min-width: 800px;
+    }
+
+    #content {
+      border-left: 1px dotted #aaa;
+      border-right: 1px dotted #aaa;
+      padding: 0 10px;
+    }
+
+    /* 
+    
+    The purpose of this exercise is to familiarize you with the many css propeties
+    you can set.
+
+    I've added a number of spans to the document that are targeted by the following
+    selectors. Add css to the selectors so that they behave properly. In many cases,
+    the selector describes what it does, e.g. the red class should make the text red.
+    In other cases I've added instructions.
+
+    In most cases you will only need to add a single line of css.
+    Use Sublime's hints!
+    
+    Refresh your page in the web browser after every edit to make sure you
+    understand what is changing.
+
+    */
+
+    .red {
+      /* use a hex value */
+
+    }
+
+    .green {
+      /* use a hex value */
+    }
+
+    .mostly-black {
+      /* use an rgb value */
+    }
+
+    .transparent-black {
+      /* add an alpha component to your color to make the text half transparent */
+    }
+
+    .serif {
+      /* set the font family to some serif font (look it up if you have to), and
+      include a fallback in case the font is unavailable */
+    }
+
+    .bold {
+
+    }
+
+    .small-text {
+      /* use a pixel font size */
+    }
+
+    .relatively-small-text {
+      /* use a relative value (em) to make the text half as large */
+    }
+
+    .relatively-big-text {
+      /* use a relative value (em) to make the text twice as large */
+    }
+
+    /* what is the difference between a relative value and a pixel value? */
+
+    .double-line-height {
+
+    }
+
+    .align-right {
+
+    }
+
+    .underline {
+    
+    }
+
+    .strikethrough {
+      
+    }
+
+    .capitalize {
+
+    }
+
+    .uppercase {
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div id="content">
+
+    <section>
+
+      <h3 class="red">Lorem <span class="relatively-small-text">Ipsum</span></h3>
+      <h6 class="uppercase">The Latin</h6>
+
+      <p>
+        "<span class="capitalize"><span class="bold">lorem ipsum</span></span> dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in <span class="relatively-big-text">reprehenderit</span> in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      </p>
+
+      <p>
+        "<span class="capitalize"><span class="underline">sed ut</span></span> perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. <span class="underline">Neque porro quisquam est</span>, qui dolorem ipsum quia dolor sit <span class="bold">amet, consectetur, adipisci velit<span>, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure <span class="relatively-big-text">reprehenderit</span> qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+      </p>
+
+    </section>
+
+    <section>
+
+      <h3 class="green">Lorem <span class="relatively-small-text">Ipsum</span></h3>
+      <h6 class="uppercase">English Translation</h6>
+
+      <p class="double-line-height serif">
+        "<span class="underline">But I must explain to you</span> how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. <span class="mostly-black">No one rejects, dislikes, or avoids pleasure itself</span>, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. <span class="transparent-black">Nor again is there anyone who loves or pursues or desires to obtain pain of itself</span>, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? <span class="strikethrough"But who has any right to find fault</span> with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?"
+      </p>
+
+    </section>
+
+    <section>
+
+      <p class="align-right">Courtesy <a class="small-text" href="http://www.lipsum.com/">lipsum.com</a>
+
+    </section>
+
+  </div>
+
+</body>

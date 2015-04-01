@@ -335,7 +335,7 @@ The *user* can also define a custom stylesheet that will override the browser de
 
 Finally, the html document's *author* can specify style definitions using inline style attributes, the style tag or stylesheets. These override the browser and user styles.
 
-When a style is not overridden by a higher priority set of declarations, then earlier declarations cascade through them and take effect. For example, if the browser applies a default font to the document and the user and docuemnt's author do not override it, then the browser's font will be used.
+When a style is not overridden by a higher priority set of declarations, then earlier declarations cascade through them and take effect. For example, if the browser applies a default font to the document and the user and document's author do not override it, then the browser's font will be used.
 
 **Inheritance**
 

@@ -11,7 +11,9 @@ Together, statements are the instructions to a computer that make up a program.
 
 Our programs are about to become more complex. Instead of entering them into node one line at a time, let's put them into a javascript file and use node to execute the file.
 
-`cd` into the directly where you'd like your javascript file to reside and create a new empty file with `touch`. Issue these commands at the bash prompt, not in node:
+Alternately you may write your programs inside a `<script> ... </script>` block inside a web page and view the webpage in the browser. Calls to `console.log()` will print in the browser console, so be sure you've activated the developer tools!
+
+If you are using node, `cd` into the directly where you'd like your javascript file to reside and create a new empty file with `touch`. Issue these commands at the bash prompt, not in node:
 
 	$ mkdir javascripts
 	$ cd javascripts/
@@ -46,7 +48,7 @@ Incidentally, we now understand what the command `npm start` does in our express
 
 ## Control Flow
 
-Normally statements will be *executed* linearly. That is, they will be exceuted in the order you give them to the computer. Javascript starts with the first statement you give it, executes it, and moves on to the next statement.
+Normally statements will be *executed* linearly. That is, they will be excecuted in the order you give them to the computer. Javascript starts with the first statement you give it, executes it, and moves on to the next statement.
 
 Type the following into test.js, save the file and execute it with node:
 
@@ -69,7 +71,7 @@ But a program does not have to execute linearly. A program can have *loops*. It 
 
 ## Conditional Statements
 
-Condtional execution is an important concept in programming. Often you will want some code to execute only if a certain condition is met. For example, you might want the alarm to go off only if the current time is equal to the  time at which the alarm was set.
+Conditional execution is an important concept in programming. Often you will want some code to execute only if a certain condition is met. For example, you might want the alarm to go off only if the current time is equal to the  time at which the alarm was set.
 
 For conditional execution programs use *if statements*. An if statement takes a condition, which is a test in the form of an expression that always evaluates to a boolean value, so either true or false. If the test is true, then the next bit of code executes. If the test is false, the statement's code does not execute.
 

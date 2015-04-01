@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Navigation Bar</title>
+
+	<!-- what does normalize.css do? try commenting out the line to see the changes -->
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<style type="text/css">
+
+	  /* we can set properties for the entire document by targeting the html tag */
+
+		html {
+			font-size: 15px;
+		}
+
+		/* we use a container to center everything */
+		/* what do the three values for margin mean? */
+
+		.container {
+			margin: 10px auto 0;
+			width: 960px;
+		}
+
+		nav {
+			border: 1px solid #1C3448;
+			border-radius: 4px;
+			background-color: steelBlue;
+			padding: 4px 10px;
+		}
+
+		/* we can override the built-in styles! */
+
+		a {
+			text-decoration: none; /* get rid of the underline */
+			color: black;
+		}
+
+		/* you might want to use targeted selectors like the following: */
+		/* complete the selectors.html assignment first if you aren't sure what's going on here */
+
+		ul.navigation {
+
+		}
+
+		ul.navigation li {
+			display: inline-block;
+			width: 120px;
+			text-align: center;
+			margin: 0 10px;
+		}
+
+		ul.navigation li:hover {
+			background: white;
+		}
+
+		ul.navigation li a:hover {
+			text-decoration: underline;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="container">
+
+		<!-- 
+		Right now our unordered list displays items vertically. We want them to display horizontally.
+		Add the required css above so that the list items meet the following specs:
+
+			- list items display horizontally across page
+			- the list items do not have a list indicator (the dot to the left of each item)
+			- each item is 120 pixels wide
+			- each item has 10 pixels of horizontal padding and 4 pixels of vertical padding
+			- there is a 20 pixel horiztonal margin between each item
+			- the text of each item is centered
+			- the text color of each item is white
+			- the text has a light drop shadow 1 px vertical
+			- when you hover over the link in the list item, underline the text and change the text color to black
+		-->
+
+		<nav>
+			<ul class="navigation">
+				<li class="current"><a href="#">Home</a></li>
+				<li><a href="#">About Us</a></li>
+				<li><a href="#">Download</a></li>
+				<li><a href="#">Purchase</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
+		</nav>
+
+		<section>
+
+			<h3>Lorem Ipsum</h3>
+
+			<p>
+				"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+			</p>
+			<p>
+				"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+			</p>
+
+			<p>Graciously provided by <a href="http://www.lipsum.com/">lipsum.com</a></p>
+
+		</secton>
+
+	</div>
+
+</body>
+</html>
