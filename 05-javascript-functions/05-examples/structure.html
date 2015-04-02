@@ -1,0 +1,43 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<script type="text/javascript">
+
+		var player1 = prompt("Player A Choice");
+		var player2 = prompt("Player B Choice");
+
+		var validChoice = true;
+
+		console.log(player1, player2);
+
+		if ( !( player1 == "rock" || player1 == "scissors" || player1 == "paper" ) ) {
+			alert("Invalid choice for player 1");
+			validChoice = false;
+		}
+		if ( !( player2 == "rock" || player2 == "scissors" || player2 == "paper" ) ) {
+			alert("Invalid choice for player 2");
+			validChoice = false;
+		}
+
+
+		if ( validChoice ) {
+
+			if ( player1 == player2 ) {
+				alert("tied");
+			} else if ( ( player1 == "rock" && player2 == "scissors" )
+					 || ( player1 == "paper" && player2 == "rock" )
+					 || ( player1 == "scissors" && player2 == "paper" ) ) {
+				alert("player 1 wins");
+			} else {
+				alert("player 2 wins");
+			}
+			
+		}
+
+	</script>
+
+</body>
+</html>
