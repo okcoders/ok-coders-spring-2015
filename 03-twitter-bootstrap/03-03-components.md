@@ -194,4 +194,4 @@ For the modal, the appropriate classes identify its function and initially hide 
 
 To understand any complex html structure, break it down into its parts and refer to documentation.
 
-Bootstrap provides many more dynamic interface components. We'll learn how to use some of them in later chapters. For now have fun exploring. 
+Bootstrap provides many more dynamic interface components. We'll learn how to use some of them in later chapters. For now have fun exploring.
