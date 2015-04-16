@@ -156,8 +156,8 @@ function longProcess(callback) {
 	// perform long operation and notifify the caller when we're finished ...
 	var results = [ ... ];
 	var err = null;
-	callback(results, err);
-}
+	callback(err, results);
+}I
 	
 // ... meanwhile, in some other part of the program ...
 	
