@@ -1,0 +1,129 @@
+HTTP: HyperText Transfer Protocol
+================================
+
+HTTP is the *HyperText Transfer Protocol*. It is an application level, text based protocol for exchanging html documents and other *resources* between computers. Web browsers, web servers and other web based application use HTTP to communicate with one another.
+
+HTTP employs *requests* and *responses* between *clients* and *servers*. A request is a message sent by a client such as a web browser or other application to a server for a particular resource, identified by a URL or *Uniform Resources Locator*. When you browse to a particular webpage for example, under the hood your web browser is translating your action into an HTTP request.
+
+The server handles a request by delivering the resource or some other data such as an error message in a response. Exactly how the server handles a request is up to it, but it must send a response back. For example, when a browser requests a *static* html page the server can simply find the document on its file system and respond with it.
+
+HTTP defines what the request and response must look like.
+
+**Distributed Applications**
+
+HTTP was designed to support *distributed applications* in which parts of the application exist on different computers but work together to implement a single, whole program.
+
+Most programs need to create, retreive, update and delete data. We'll see that HTTP is not only for getting documents from a server. *A request is a request to a server to do something with a resource*. Getting a resource may be the most common action, but HTTP also allows requests to ask a server to create, modify and delete resources.
+
+## Resources
+
+[HTTP (Wikipedia)](http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
+
+[HTTP Status Codes](http://en.wikipedia.org/wiki/List_of_HTTP_status_codes)
+
+[URLs (Wikipedia)](http://en.wikipedia.org/wiki/Uniform_Resource_Locator)
+
+## Request
+
+A request is a text-based message from a client to a server to act on a particular resource. It is composed of three parts: a request line, request headers and an optional message body:
+
+	------------------------
+	| Request Line         |
+	------------------------
+	| Headers              |
+	|                      |
+	------------------------
+	| Body                 |
+	|                      |
+	|                      |
+	|                      |
+	------------------------
+
+**Request Line**
+
+The request line indicates the type of request and the target of the request as well as the version of http being used.
+
+There are a number of actions that a request can ask a server to perform on the target resource. The most common action, called the request *verb*, is `GET`, which simply asks the server to send the resource.
+
+Most web browsing is done using GET. Browse to the main page for a site and the browser sends a GET request for index.html. Click a link in that document and the browser sends a new GET request for it, and so forth.
+
+A request, however, can ask the server to perform other actions. The second most common is a `POST`. A POST request sends data to the server in the request body. When you fill in a form and submit it a POST request is usually how the form data is communicated to the server.
+
+A server may do whatever it likes with POST data but a common action is to create a new resource at the target url and to send it back to the browser in its response. This means that a request can be made for a web page that does not exist yet. The request is a request to the server to create that document.
+
+Other request types include `PUT` and `DELETE`. PUT is used to modify an existing resource and delete, naturally, to delete it. Most browsers don't support PUT and DELETE requests although there are ways to represent them which we'll see in future chapters.
+
+For a complete list of request types refer to [Wikipedia's entry on request methods](http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods).
+
+**Headers**
+
+The headers section of the request contains additional information about the request called *metadata*. Headers can identify the language spoken by the user, what web browser she is using, what character encoding to use for the response, whether the brower wants html or [json](http://en.wikipedia.org/wiki/JSON) or [xml](http://en.wikipedia.org/wiki/XML), and so on.
+
+**Body**
+
+The request body contains any data the request is sending to the server for additional processing, for example user input from a form or a file upload. The body is optional and is normally only used with POST and PUT requests.
+
+Because we're building a web application meant to be used by browsers we won't typically have to construct requests by hand. The browser will do it for us. But the server code we write will be responsible for extracting the request type, headers and body from a request and generating correctly formatted responses.
+
+## Responses
+
+A response looks similar to a request but is generated by a server in response to a request. Like the response it is composed of three parts: a status line, headers and an optional message body:
+
+	------------------------
+	| Response Status      |
+	------------------------
+	| Headers              |
+	|                      |
+	------------------------
+	| Body                 |
+	|                      |
+	|                      |
+	|                      |
+	------------------------
+
+**Response Status**
+
+The response status is a number and brief message that indentifies whether a client's request succeeded or not. The most familiar *status codes* are the `200 OK` and `404 Not Found` codes, but there are dozens of others which let a browser know what happened with its request, such as redirection, access restricted, server error and so on.
+
+**Headers**
+
+As with the request, the headers section contains additional information about the response such as the date and time it was processed, content type and so forth.
+
+**Body**
+
+The response body contains the actual content of the response. For many requests this will be the html document that was requested. Other requests may only be for data and so the body will contain raw json or xml which javascript code in the browser will need to transform and display.
+
+Again, much of the work for the rest of this course involves handling requests from the server's perspective and constructing the right responses.
+
+## HTTP In Action
+
+It's easy to see http in action and to construct valid http yourself. Because http is just text you can fire up a terminal utility such as *netcat* and actually type out an http request yourself.
+
+**Netcat**
+
+At the terminal run the `nc` command with two arguments, the server you want to connect to and the port number. By default http servers use port 80:
+
+	$ nc www.google.com 80
+	
+Netcat waits for input. Type out a `GET` request for the root page with protocol information and press return twice:
+
+	GET / HTTP/1.1
+
+That comprises our entire request, as additional headers and a request body are optional. Netcat then prints out the response. You'll see the status line immediately followed by headers and then the response body, in this case the html document for google's homepage:
+
+	HTTP/1.1 200 OK
+
+	Date: Mon, 07 Jul 2014 14:53:15 GMT
+	Expires: -1
+	Cache-Control: private, max-age=0
+	Content-Type: text/html; charset=ISO-8859-1
+	...
+
+	<!doctype html> 
+	...
+
+**Chrome**
+
+We can also look under the hood in our web browser and view http requests and responses. Activate the developer tools in chrome and choose *Network* from the tab. Browse to google's homepage. At the left you'll see all the resources that were requested by the web browser as the page loaded, including requests for images and additional content like css and javascript files, all identified by the URL path.
+
+Select the first item for *www.google.com* and select the *Headers* section on the right. Google shows you the request and response headers as well as the request type and response code. Select the *Response* section to view the raw response, in this case the html document for google's homepage.
