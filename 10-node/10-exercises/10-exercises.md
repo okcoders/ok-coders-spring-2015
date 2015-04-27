@@ -3,12 +3,6 @@ OK Coders: Lesson 10 Exercises
 
 You have a number of homework assignments this week. Complete each assignment. These homework assignments will be difficult. The javascript is not difficult but you will likely spend a great deal of time reading online documentation to understand what built-in modules and functions to use in order to complete the assignments.
 
-You may download this entire respository from the command line with the git command:
-
-	git clone https://github.com/okcoders/node-introduction-homework.git
-
-You'll find a number of files in the template subdirectory. Complete the assignment by modifying these files.
-
 ## References
 
 [Node API Documentation](http://nodejs.org/api/)
