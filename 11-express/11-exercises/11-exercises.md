@@ -9,7 +9,7 @@ Create a new express application from scratch. You'll need to create a directory
 
 **References**
 
-[Bash Heroku Git Class](https://github.com/okcoders/bash-heroku-class)
+[Bash Heroku Git Class](https://github.com/okcoders/ok-coders-spring-2015/tree/master/09-command-line)
 
 ## Add twitter bootstrap styling
 
@@ -17,7 +17,7 @@ Download the twitter bootstrap css stylesheets, javascript files and fonts, and 
 
 **References**
 
-[Bootstrap Class](https://github.com/okcoders/bootstrap-class)
+[Bootstrap Class](https://github.com/okcoders/ok-coders-spring-2015/tree/master/03-twitter-bootstrap)
 
 ## Create a couple of static pages
 
@@ -25,7 +25,7 @@ Add a couple of static html pages to your project, such as an "index.html" page 
 
 **References**
 
-[Bootstrap Example](https://github.com/okcoders/bootstrap-example)
+[Bootstrap Example](https://github.com/okcoders/ok-coders-spring-2015/tree/master/03-twitter-bootstrap)
 
 ## Add routes for a posts resource
 
@@ -143,11 +143,3 @@ Add additional routes to your posts module that supports viewing comments on a s
 </table>
 
 You can implement these routes in the same "posts.js" file. Notice the use of the two named parameters `:id` for the post and `:cid` for the comment.
-
-## Upload your application to heroku
-
-Test your application locally and with the Postman chrome extension as you go. When you've got your application working, create a new heroku application and upload it.
-
-**References**
-
-[Bash Heroku Git Class](https://github.com/okcoders/bash-heroku-class)
