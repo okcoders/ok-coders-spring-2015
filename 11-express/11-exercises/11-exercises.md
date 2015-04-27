@@ -1,4 +1,4 @@
-OK Coders: Lesson 11 Exercises
+OK Coders: Express Exercises
 ====================================
 
 For this evening's assignment you will create a new express application from scratch and add a number of custom routes to it. Test your application locally with the help of the Postman chrome extension. When you are confident your application is working correctly upload it to heroku.
