@@ -25,6 +25,23 @@ Rails is another web application framework like Express but for the Ruby program
 
 In the end, every web application needs to do the same thing: handle requests and generate responses.
 
+## Install the Express Generator
+
+Before you get started you must install the express generator. First check to see if it's already install on your system. Fire up your terminal or GitBash and run:
+
+```
+$ which express
+/usr/local/bin/express
+```
+
+If you don't get back the location of express, install it with:
+
+```
+npm install express-generator -g
+```
+
+You're using npm to install the express generator, but the `-g` flag tells npm to install it globally.
+
 ## Basic Routing
 
 Basic express routing is straightfoward. Begin by creating a new express application. Create a new directory, cd into it and template a new project:
