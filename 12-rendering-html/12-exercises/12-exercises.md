@@ -7,8 +7,8 @@ For this assignment you will extend the blog application you began building in t
 
 If you start a new application from scratch, be sure to initialize the express application with the `--ejs` argument to use the ejs templating system:
 
-	$ mkdir express-app && cd express-app
-	$ express --ejs
+	$ express blog --ejs
+	$ cd blog && npm install
 
 **Upgrade Existing**
 
@@ -85,7 +85,7 @@ Your views should do exactly what is described in the **Used for** column. In so
 </div>
 ```
 
-If you're feeling intrepid, create links from the posts/index page to each respective post/:id page.
+Also create links from the posts/index page to each respective post/:id page.
 
 Organize your view files according to the **View file** column. Create a *posts* directory in the *views* directory and create four templates there: *index.ejs*, *new.ejs*, *show.ejs* and *edit.ejs*. Render each template according to the route being handled.
 
@@ -105,3 +105,7 @@ var posts = Post.all();
 var id = ...
 var post = Post.find(id);
 ```
+
+**Additional Routes**
+
+Don't worry about implementing the other routes such as the `POST`, `PUT`, and `DELETE` routes. We'll add those once we've learned how to use a database and can actually create, update and delete blog posts.

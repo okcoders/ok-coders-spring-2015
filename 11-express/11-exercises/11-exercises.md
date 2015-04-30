@@ -1,11 +1,11 @@
 OK Coders: Express Exercises
 ====================================
 
-For this evening's assignment you will create a new express application from scratch and add a number of custom routes to it. Test your application locally with the help of the Postman chrome extension. When you are confident your application is working correctly upload it to heroku.
+For this evening's assignment you will create a new express application from scratch and add a number of custom routes to it. 
 
 ## Create a new express application
 
-Create a new express application from scratch. You'll need to create a directory for it and run the `express` command inside that directory. Use git to track changes to your application as you will eventually be uploading it to heroku.
+Create a new express application from scratch. In the command line run `express blog`. Express will create a new folder "blog" and fill it with an application template. `cd` into that directory and run `npm init` to download the application's dependencies. If you are feeling bold, use git to track changes to your application.
 
 **References**
 
@@ -89,7 +89,9 @@ Modern web applications use something called *resourceful routing* to represent 
 
 Generate all of the following routes above with the VERB and path combinations identified. This implements a posts resource.
 
-However, you should create these routes inside a separate routing module and require it into the main application. That means you'll need a "posts.js" file inside the "routes" folder in your express project. Scope the module to the `/posts` path from the "app.js" file. Refer to the lesson material and template code for instructions on how to do this.
+Go ahead and implement your routes inside the main *app.js* file. For a more advanced application architecture, create the routes inside a separate routing file and require it into app.js. That means you'll need a "posts.js" file inside the "routes" folder in your express project. Scope the module to the `/posts` path from the "app.js" file. Refer to the lesson material and template code for instructions on how to do this.
+
+Don't worry about returning valid HTML in your routes just yet. We'll learn about templating in the next lesson. For now just call `res.send()` in each route with some text. Make sure that you run the application and test the routes in the browser though.
 
 ## Add routes for a comments resource on posts
 
