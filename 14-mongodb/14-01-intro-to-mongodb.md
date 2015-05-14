@@ -35,8 +35,10 @@ Graphical interface to the mongo server. Use Robomongo in place of the command l
 
 If you are using homebrew, then at the command line simply:
 
-  $ brew update
-  $ brew install mongodb
+```
+$ brew update
+$ brew install mongodb
+```
 
 If not, install from the package at [mongodb.org/downloads](http://www.mongodb.org/downloads)
 
@@ -60,8 +62,10 @@ Start both the daemon and the client from the command line. Start the daemon fir
 
 You must specify a directory path to your database when starting the latest release of the mongo database daemon. Use a local directory for now. `cd` into a new folder and:
 
-  $ mkdir db
-  $ mongod --dbpath db
+```
+$ mkdir db
+$ mongod --dbpath db
+```
 
 This sequence of commands creates a new empty *db* directory and then starts the mongo server, telling it to use that folder for the database. This also keep the database server running in a terminal window. To quit the database type Control-C: `^c`. 
 
@@ -69,17 +73,21 @@ To interact with the database from the command line client you will need to star
 
 On the Macintosh you mays see a warning when starting the database server:
 
-  WARNING: soft rlimits too low. Number of files is 256, should be at least 1000
+"WARNING: soft rlimits too low. Number of files is 256, should be at least 1000"
 
 If that occurs, execute the following command before running the daemon:
 
-  $ ulimit -n 2048
+```
+$ ulimit -n 2048
+```
 
 **Windows**
 
 First you will need to create the database path that mongo uses. In a Command Prompt type:
 
-  md \data\db
+```
+md \data\db
+```
 
 Then find the Mongo directory that the download installed. It will be in your `C:\Program Files`. Find the *bin* directory inside the Mongo directory. It contains a `mongod.exe` file. Run that program.
 
@@ -89,10 +97,12 @@ If you have trouble installing or running mongo on windows, refer to the [offici
 
 We're now ready to connect to the database. On Mac or Linux, in another terminal window, execute the `mongo` command. It should connect you to the database and tell you some information about it:
 
-  $ mongo
-  MongoDB shell version: 2.6.3
-  connecting to: test
-  >
+```
+$ mongo
+MongoDB shell version: 2.6.3
+connecting to: test
+>
+```
 
 On Windows, run the `mongo.exe` file in that *bin* folder. You'll type commands into this command prompt.
 
@@ -100,16 +110,20 @@ Notice that the prompt changes to a `>`, indicating that you are in the mongo RE
 
 At any point in your interaction with the command line client, if you aren't sure what to do next type the `help` command. It will print a list of available commands given the current context:
 
-  > help
-  db.help()                    help on db methods
-  db.mycoll.help()             help on collection methods
-  sh.help()                    sharding helpers
-  rs.help()                    replica set helpers
-  ...
+```
+> help
+db.help()                    help on db methods
+db.mycoll.help()             help on collection methods
+sh.help()                    sharding helpers
+rs.help()                    replica set helpers
+...
+```
 
 For now use the `exit` command to quit the client:
 
-  > exit
+```
+> exit
+```
 
 As you interact with the database through the client application you'll see the server print out information to the other terminal.
 
@@ -122,28 +136,36 @@ Example collections might be `posts`, `users`, `comments` and so on in a blog ap
 Before we create collections we need to specify what database those collections will belong to. This is similar to SQL. A single mongo server can support many databases that are independent of one another. Let's fire up the mongo client, create a database and start adding data
 
 Make sure you're running the `mongo` command line client:
-  
-  $ mongo
-  >
+
+```  
+$ mongo
+>
+```
 
 and execute:
 
-  > show dbs
-  admin  (empty)
-  local  0.078GB
-  test   (empty)
+```
+> show dbs
+admin  (empty)
+local  0.078GB
+test   (empty)
+```
 
 The `show dbs` command just lists the currently active databases. To switch to a database, simply execute the `use` command, providing the name of the database:
 
-  > use blog
-  switched to db blog
+```
+> use blog
+switched to db blog
+```
 
 Notice, however, that `show` does not yet include the new blog database:
 
-  > show dbs
-  admin  (empty)
-  local  0.078GB
-  test   (empty)
+```
+> show dbs
+admin  (empty)
+local  0.078GB
+test   (empty)
+```
   
 Both databases and collections are created *lazily* in mongodb. A database won't be created until there is data added to it, likewise for a collection.
 
@@ -159,28 +181,36 @@ If you want to make changes to the comments collection, use `db.comments`. `db` 
 
 Let's create a few blog posts then. Target the `db.posts` object. The command we'll use is `insert`, and we pass it a normal javascript object:
 
-  > db.posts.insert({
-    title: "The email line that's client repellent",
-    body: "I’d gone through a few droughts as a freelancer",
-    author: "OK Coders"
-  })
+```
+> db.posts.insert({
+	title: "The email line that's client repellent",
+	body: "I’d gone through a few droughts as a freelancer",
+	author: "OK Coders"
+})
+```
 
 The client should respond with the result:
 
-  WriteResult({ "nInserted" : 1 })
+```
+WriteResult({ "nInserted" : 1 })
+```
 
 We can see that the post has been created. First confirm that the collection exists:
 
-  > show collections
-  posts
-  system.indexes
+```
+> show collections
+posts
+system.indexes
+```
 
 We see the `posts` collection has just been created along with a system collection for managing indexes.
 
 Execute the `find` command on `db.posts` to see the actual post object:
 
-  > db.posts.find()
-  { "_id" : ObjectId("53cd2309b3f624fc17ca5cc9"), "title" : "The email line that's client repellent", "body" : "I’d gone through a few droughts as a freelancer", "author" : "OK Coders" }
+```
+> db.posts.find()
+{ "_id" : ObjectId("53cd2309b3f624fc17ca5cc9"), "title" : "The email line that's client repellent", "body" : "I’d gone through a few droughts as a freelancer", "author" : "OK Coders" }
+```
 
 The command returns the single document we just created. Notice the document contains an additional `_id` parameter of type `ObjectId`. This is the unique identifier mongodb uses to identify objects in a database and it is the identifier we'll use for the `:id` param in our resourceful routes.
 
@@ -210,9 +240,11 @@ You should receive a message that no errors occurred while adding the data.
 
 Again confirm that the posts were added with the `find` command:
 
-  > db.posts.find()
-  { "_id" : ObjectId("53cd2309b3f624fc17ca5cc9"), "title" : "The email line that's client repellent", "body" : "I’d gone through a few droughts as a freelancer", "author" : "OK Coders" }
-  ...
+```
+> db.posts.find()
+{ "_id" : ObjectId("53cd2309b3f624fc17ca5cc9"), "title" : "The email line that's client repellent", "body" : "I’d gone through a few droughts as a freelancer", "author" : "OK Coders" }
+...
+```
 
 Sure enough, each post was added and assigned a unique object ID.
 
@@ -222,8 +254,10 @@ Retrieving, or *querying*, documents in mongodb is straightforward. We'll use th
 
 Without other arguments, `find` returns all the documents in a collection:
 
-  > db.posts.find()
-  ...
+```
+> db.posts.find()
+...
+```
 
 
 A command like this might be used when someone visits the `/posts` url on your blog. 
@@ -232,35 +266,47 @@ Often, however, you'll want to retrieve a single document, for example when the 
 
 Get the object id of a post in your database. One of mine is:
 
-  ObjectId("53cd2309b3f624fc17ca5cc9")
+```
+ObjectId("53cd2309b3f624fc17ca5cc9")
+```
 
 In the find command, pass in a *query object* with the parameters and their values that you'd like to query against:
 
-  > db.posts.find({
-    _id: ObjectId("53cd2309b3f624fc17ca5cc9")
-  })
+```
+> db.posts.find({
+_id: ObjectId("53cd2309b3f624fc17ca5cc9")
+})
+```
 
 Notice that I am passing a normal javascript object to the find command and that object contains parameters which documents of that type (posts) have, for example, `_id`'s. Mongo then returns only those documents which match those parameters:
 
-  { "_id" : ObjectId("53cd2309b3f624fc17ca5cc9"), "title" : "The email line that's client repellent", "body" : "I’d gone through a few droughts as a freelancer", "author" : "OK Coders" }
+```
+{ "_id" : ObjectId("53cd2309b3f624fc17ca5cc9"), "title" : "The email line that's client repellent", "body" : "I’d gone through a few droughts as a freelancer", "author" : "OK Coders" }
+```
 
 All querying in mongodb works like this. We'll pass in a query object to the `find` command that targets specific attributes on the documents in the collection.
 
 We can query against any attribute on a document. Search for those documents whose author is `"Mr. T"`:
 
-  > db.posts.find({
-    author: "Mr. T"
-  })
+```
+> db.posts.find({
+author: "Mr. T"
+})
+```
 
 You'll need to supply an author value that actually occurs in your documents. Mongo then returns the correct document.
 
-  { "_id" : ObjectId("53cd2561b3f624fc17ca5cca"), "title" : "The Moderately Enthusiastic Programmer", "body" : "I feel like I’m practically the poster child for the 'passionate programmer'", "author" : "Mr. T" }
+```
+{ "_id" : ObjectId("53cd2561b3f624fc17ca5cca"), "title" : "The Moderately Enthusiastic Programmer", "body" : "I feel like I’m practically the poster child for the 'passionate programmer'", "author" : "Mr. T" }
+```
 
 We can use [regular expressions](http://en.wikipedia.org/wiki/Regular_expression) for more advanced text based queries against object attributes. For example, the following query finds any document in the posts collection whose title begins with the word 'the', regardless of its case:
 
-  > db.posts.find({
-    title: /^the/i
-  })
+```
+> db.posts.find({
+	title: /^the/i
+})
+```
 
 Mongo supports much more advanced querying which is beyond the scope of this chapter.
 
@@ -270,14 +316,18 @@ We can specify which attributes or properties to return when we query a collecti
 
 Add a second object argument to the find command, again composed of the names of attributes on the documents in the collection but with boolean values to indicate if you want those attributes returned:
 
-  > db.posts.find( {}, {title: true} )
+```
+> db.posts.find( {}, {title: true} )
+```
   
 This command asks find to only return the title attribute for the documents it matches. Because I don't have a specific query I need to pass in an empty object for the first parameter. It returns the documents but with only their `_id` and `_title`:
 
-  { "_id" : ObjectId("53cd2309b3f624fc17ca5cc9"), "title" : "The email line that's client repellent" }
-  { "_id" : ObjectId("53cd2561b3f624fc17ca5cca"), "title" : "The Moderately Enthusiastic Programmer" }
-  { "_id" : ObjectId("53cd2561b3f624fc17ca5ccb"), "title" : "The Magic of Strace" }
-  { "_id" : ObjectId("53cd2561b3f624fc17ca5ccc"), "title" : "http://nightwatchjs.org/" }  
+```
+{ "_id" : ObjectId("53cd2309b3f624fc17ca5cc9"), "title" : "The email line that's client repellent" }
+{ "_id" : ObjectId("53cd2561b3f624fc17ca5cca"), "title" : "The Moderately Enthusiastic Programmer" }
+{ "_id" : ObjectId("53cd2561b3f624fc17ca5ccb"), "title" : "The Magic of Strace" }
+{ "_id" : ObjectId("53cd2561b3f624fc17ca5ccc"), "title" : "http://nightwatchjs.org/" }  
+```
 
 **The Cursor**
 
@@ -289,13 +339,17 @@ For example, to sort the results of a find operation, add the `sort()` method an
 
 Let's order our posts by author's name, ascending:
 
-  > db.posts.find().sort( { author: 1 } )
+```
+> db.posts.find().sort( { author: 1 } )
+```
 
 Use a value of `-1` to sort descending. You may specify more than one attribute to sort by.
 
 Use the `limit()` and `skip()` commands to specify the range of results you'd like to retrieve. For example, to skip the first two documents and only retrieve the next one after them, use `skip(2)` and `limit(1)` after the `find()` command:
 
-  > db.posts.find().skip(2).limit(1)
+```
+> db.posts.find().skip(2).limit(1)
+```
 
 Cursor methods like this are often used to page through a long list of items.
 
@@ -313,41 +367,49 @@ Find an object you'd like to change in your posts collection. You'll need the `_
 
 Let's build the update command up piece by piece. First target that document with the update command:
 
-  db.posts.update({
-    _id: ObjectId("53cd2309b3f624fc17ca5cc9")
-  },
-  {
-    ...
-  })
+```
+db.posts.update({
+	_id: ObjectId("53cd2309b3f624fc17ca5cc9")
+},
+{
+	...
+})
+```
 
 Notice that we have a second object that needs to be filled in. Provide the `$set` property which itself takes an object:
 
-  db.posts.update({
-    _id: ObjectId("53cd2309b3f624fc17ca5cc9")
-  },
-  {
-    $set: {
-      ...
-    }
-  })
+```
+db.posts.update({
+	_id: ObjectId("53cd2309b3f624fc17ca5cc9")
+},
+{
+	$set: {
+		...
+	}
+})
+```
 
 Finally, inside the `$set` object, specify the attributes you'd like to modify and their new values:
 
-  > db.posts.update({
-    _id: ObjectId("53cd2309b3f624fc17ca5cc9")
-  },
-  {
-    $set: {
-      title: "New title for this post"
-    }
-  })
+```
+> db.posts.update({
+	_id: ObjectId("53cd2309b3f624fc17ca5cc9")
+},
+{
+	$set: {
+		title: "New title for this post"
+	}
+})
+```
 
 This final command will actually perform the update. I've used extra spacing here to make the structure clear but you can always write the entire command on a single line.
 
 A `find` query shows us that the post has in fact been modified:
 
-  > db.posts.find( {_id: ObjectId("53cd2309b3f624fc17ca5cc9")} )
-  { "_id" : ObjectId("53cd2309b3f624fc17ca5cc9"), "title" : "New title for this post", "body" : "I’d gone through a few droughts as a freelancer", "author" : "OK Coders" }
+```
+> db.posts.find( {_id: ObjectId("53cd2309b3f624fc17ca5cc9")} )
+{ "_id" : ObjectId("53cd2309b3f624fc17ca5cc9"), "title" : "New title for this post", "body" : "I’d gone through a few droughts as a freelancer", "author" : "OK Coders" }
+```
 
 We used the special `$set` parameter to specify what kind of update we want to execute. Mongo supports other updates like unseting, incrementing and array modification, but these are beyond the scope of this chapter.
 
@@ -359,13 +421,17 @@ Deleting is straightforward. Use the `remove` command. Like the `find` and `upda
 
 For example, to delete the post document I've been modifiying:
 
-  > db.posts.remove({
-    _id: ObjectId("53cd2309b3f624fc17ca5cc9")
-  })
+```
+> db.posts.remove({
+	_id: ObjectId("53cd2309b3f624fc17ca5cc9")
+})
+```
 
 I could delete all the posts by calling delete with an empty query object:
 
-  > db.posts.remove({})
+```
+> db.posts.remove({})
+```
 
 Be careful!
 
@@ -379,52 +445,66 @@ MongoDB, however, does support nested data types in documents. A document attrib
 
 For example insert a post that has a keywords attribute that is an array of strings:
 
-  > db.posts.insert({
-    title: "Keywords test",
-    body: "Lorem ipsum",
-    author: "Mr. T",
-    keywords: [ "node", "mongo", "okcoders" ]
-  })
+```
+> db.posts.insert({
+	title: "Keywords test",
+	body: "Lorem ipsum",
+	author: "Mr. T",
+	keywords: [ "node", "mongo", "okcoders" ]
+})
+```
 
 `db.posts.find()` now returns that document as well:
 
-  ...
-  { "_id" : ObjectId("53cd49aeb3f624fc17ca5ccd"), "title" : "Keywords test", "body" : "Lorem ipsum", "author" : "Mr. T", "keywords" : [ "node", "mongo", "okcoders" ] }
+```
+...
+{ "_id" : ObjectId("53cd49aeb3f624fc17ca5ccd"), "title" : "Keywords test", "body" : "Lorem ipsum", "author" : "Mr. T", "keywords" : [ "node", "mongo", "okcoders" ] }
+```
 
 Importantly, notice that our keywords is a list of distinct values. We could not do this in a SQL style database.
 
 We can now query against that nested array as we do any other document attribute. Mongo automatically infers that you mean to check for values in an array when your query object targets array attributes:
 
-  > db.posts.find({
-    keywords: 'node'
-  })
+```
+> db.posts.find({
+	keywords: 'node'
+})
+```
 
 We can even use regular expressions, which is pretty powerful stuff and much simpler than SQL:
 
-  > db.posts.find({
-    keywords: /NODE/i
-  })
+```
+> db.posts.find({
+	keywords: /NODE/i
+})
+```
 
 In addition to arrays we can nest javascript objects inside our documents. Create a post that has an author attribute but this time provide a javascript object with a name and id fields for it:
 
-  > db.posts.insert({
-    title: "Nested author test",
-    body: "Lorem ipsum",
-    author: {
-      id: 1,
-      name: "OK Coders"
-    }
-  })
+```
+> db.posts.insert({
+	title: "Nested author test",
+	body: "Lorem ipsum",
+	author: {
+		id: 1,
+ 		name: "OK Coders"
+	}
+})
+```
 
 Notice we're just using a nested javascript object. Confirm the insertion with the `find` operation:
 
-  { "_id" : ObjectId("53cd4d03b3f624fc17ca5cce"), "title" : "Nested author test", "body" : "Lorem ipsum", "author" : { "id" : 1, "name" : "OK Coders" } }
+```
+{ "_id" : ObjectId("53cd4d03b3f624fc17ca5cce"), "title" : "Nested author test", "body" : "Lorem ipsum", "author" : { "id" : 1, "name" : "OK Coders" } }
+```
 
 As with arrays, we can query against attributes in the nested object. Simply use the dot syntax to reach into it:
 
-  > db.posts.find({
-    "author.name": 'OK Coders'
-  })
+```
+> db.posts.find({
+	"author.name": 'OK Coders'
+})
+```
 
 You can nest as deeply as you like in a mongo document and can combine arrays and objects. Notice that we have to wrap the property name in quotes because the period `.` is not a legal character for a property name.
 
@@ -436,12 +516,14 @@ In the above example we were able to insert a document into the posts collection
 
 Notice what happens then if we request the documents back in a `find` operation but only ask for keywords:
 
-  db.posts.find( {}, { keywords: true } )
-  { "_id" : ObjectId("53cd2309b3f624fc17ca5cc9") }
-  { "_id" : ObjectId("53cd2561b3f624fc17ca5cca") }
-  { "_id" : ObjectId("53cd2561b3f624fc17ca5ccb") }
-  { "_id" : ObjectId("53cd2561b3f624fc17ca5ccc") }
-  { "_id" : ObjectId("53cd49aeb3f624fc17ca5ccd"), "keywords" : [ "node", "mongo", "okcoders" ] }
+```
+db.posts.find( {}, { keywords: true } )
+{ "_id" : ObjectId("53cd2309b3f624fc17ca5cc9") }
+{ "_id" : ObjectId("53cd2561b3f624fc17ca5cca") }
+{ "_id" : ObjectId("53cd2561b3f624fc17ca5ccb") }
+{ "_id" : ObjectId("53cd2561b3f624fc17ca5ccc") }
+{ "_id" : ObjectId("53cd49aeb3f624fc17ca5ccd"), "keywords" : [ "node", "mongo", "okcoders" ] }
+```
 
 We get a number of objects back, as we expect, but only one of them has keywords. What happens of we try to iterate through all these objects and access the keywords? What value will we get back when a document doesn't have that attribute?
 
