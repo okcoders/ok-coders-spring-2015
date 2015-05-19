@@ -27,15 +27,11 @@ Wikipedia's entry on object-relational mapping. The concepts largely apply to ob
 
 ## Setting up
 
-For this lesson's material you may either make changes to an existing project you are already working on or you may begin with the project template provided in this repository. If you'd like to use the template provided, `cd` into an empty directory that is not part of an express project or git repository and clone this repo:
-
-	$ git clone https://github.com/okcoders/node-mongo-class.git
-
-Then `cd` into the downloaded repository and the *template* directory contained in it. That will be the root directory for the project. Be sure to `npm install` the required depencies, which are not included in the repo.
+For this lesson's material you may either make changes to an existing project you are already working on or you may begin with the project template provided in this repository. If you'd like to use the template provided, `cd` into an empty directory that is not part of an express project or git repository and clone this repo and locate the template project in the chapter 15 lesson material.
 
 **Install mongoose**
 
-First we're going to need to install mongoose and ensure we're able to connect to our database. Let's begin by installing mongoose. It's hosted as a public node package so we can just `cd` into our project directory and:
+First we're going to install mongoose and ensure we're able to connect to our database. Let's begin by installing mongoose. It's hosted as a public node package so we can just `cd` into our project directory and:
 
 	$ npm install mongoose --save
 
@@ -52,7 +48,7 @@ On Linux and Mac `cd` into your project directory and create a "db" folder if yo
 	$ mkdir db
 	$ mongod --dbpath db
 
-Recall that on the Mac, if you get a warning about *"soft rlimits too low"* fix it before running the daemone with the command:
+Recall that on the Mac, if you get a warning about *"soft rlimits too low"* fix it before running the daemon with the command:
 
 	$ ulimit -n 2048
 
@@ -98,7 +94,7 @@ Add a couple more posts so that you have some test data in your database. Feel f
 
 ## Connecting to the database
 
-Now that we have mongoose installed and our database running with test data we are ready to connect to the database from our node application. In the project's man *app.js* file make the following modifications.
+Now that we have mongoose installed and our database running with test data we are ready to connect to the database from our node application. In the project's main *app.js* file make the following modifications.
 
 First require in the mongoose module. This should go near the top of the file:
 
@@ -255,6 +251,33 @@ Now in the callback we wrote first check the err parameter. If it's true, which 
 	    }
 	  });
 	});
+	
+**Using next**	
+
+For more advanced error handling you could include a third parameter in the route's function callback, the `next` parameter, and instead of rendering a 500 page directly, call `next(err)`:
+
+```
+router.get('/', function(req, res, next) {
+	Post.find({}).exec(function(err, posts) {
+		if (err) {
+			console.log("db error in GET /posts: " + err);
+			next(err);
+		}
+		...
+	});
+});
+```
+
+We haven't discussed the `next` parameter yet. It allows a route handler to relinquish responsibility for sending an http response back to the client and passes that responsibility to the next available handler for this route. When we call next with an error parameter we instruct express to use the designated error handling route, which appear at the bottom of our *app.js* file:
+
+```
+// error handlers
+// development error handler will print stacktrace
+
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+    ...
+```
 
 **Update show route**
 
@@ -321,9 +344,7 @@ Let's start with comments. We'll implement users in the last week of class.
 
 **Nested documents or multiple collections**
 
-We know that we have two ways of keeping track of a one-to-many relationships in mongodb. We can use nested documents or we can create a separate collection. For example, we could just include an array of comments in each post document. In that case there's nothing left to model. A post immediately knows which comments belong to it, and a comment only exists in so far as it is part of an actual post document.
-
-Our other option is to create a comments collection and store comment documents separately in it. This is a slightly more complex implementation at the outset but offers some benefits in the long run, including simpler querying.
+We know that we have two ways of keeping track of a one-to-many relationships in mongodb. We can use nested documents or we can create a separate collection. For example, we could just include an array of comments in each post document. In that case there's nothing left to model. A post immediately knows which comments belong to it, and a comment only exists in so far as it is part of an actual post document. Our other option is to create a comments collection and store comment documents separately in it.
 
 **Relating documents to one another**
 
@@ -333,7 +354,7 @@ Again we have two options. We can have a post keep track of which comments belon
 
 Either way we'll need a property on the document. If we keep track of the comments from the post, we'll have to manage an array of references, namely one reference for each comment, but if we keep track of the post from a comment, we only need a single reference, the one post which that comment belongs to. Managing a simple property is defintitely more straighforward than managing an array.
 
-Consequently each comment will need in addition to its body property and perhaps an author property, a postId property that reference the post it belongs to. For its value we will use the very thing that uniquely identifies a post, an ObjectId.
+Consequently each comment will need in addition to its body property and perhaps an author property, a postId property that references the post it belongs to. For its value we will use the very thing that uniquely identifies a post, an ObjectId.
 
 **Add test data**
 
@@ -409,7 +430,7 @@ Append `/comments` to the end of that url and visit that page:
 
 You should see the comments for that post.
 
-We're missing a couple of things. Of course we don't the user to have to manually enter a URL. We should link to it from the post page. Add a link to the posts comments from the *views/posts/show.ejs* file. It should look something like:
+We're missing a couple of things. Of course we don't want the user to have to manually enter a URL. We should link to it from the post page. Add a link to the posts comments from the *views/posts/show.ejs* file. It should look something like:
 
 	<a href="/posts/<%= post.id %>/comments">Comments</a>
 
