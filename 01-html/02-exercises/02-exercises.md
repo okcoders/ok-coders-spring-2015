@@ -3,6 +3,8 @@ OK Coders: Lesson 2 Exercises
 
 Complete all homework assignments before coming to the next class or as otherwise instructed.
 
+Unless you want to work ahead you may ignore instructions regarding the express application, heroku, the command line and git. Simply fill out the html files in the public directory. 
+
 ## Create an express app, add static content, upload it to heroku
 
 Create a new Express web application. Do not reuse previous express applications. The intent is to practice using the command line and creating applications from scratch quickly.
