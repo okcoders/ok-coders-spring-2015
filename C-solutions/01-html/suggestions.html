@@ -22,19 +22,40 @@
 
   <section>
 
-    Contact Us <!-- Turn this into an h3 element -->
+    <h3>Contact Us</h3> <!-- Turn this into an h3 element -->
 
     <!-- In this section, create a form that allows people to send questions to the customer service department of your online business. Your form should have text inputs for a person's name and email address as well as a dropdown list (select tag) for the type of question [Bug Report, Feature Request, Sales, Other] and a text area for the question itself.
 
     Each element of the form should be on it's own line, and each element should have a label identifying what it is, e.g. Name, Email, Query, and Question. Add an action to the form that points to this page, and add a Submit button that triggers the action. Naturally, the form won't do anything except  reload the page, but it's a start! -->
 
-    Name
+    <!-- SOLUTION: You have used the <br> tag to separate lines. Generally we try to avoid the br tag because it is a stylistic tag only and does not add information about the structure of the page. Use divs to section off material. Our form ends up pretty ugly. In a future lesson we're learn how to use css to add styling -->
 
-    Email
+    <form>
+      <div>
+        <label for="name">Name</label>
+        <input type="text" id="name">
+      </div>
 
-    Query
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email">
+      </div>
 
-    Question
+      <div>
+        <label for="query">Query</label>
+        <select id"query">
+          <option value="bug report">Bug Report</option>
+          <option value="feature request">Feature Request</option>
+          <option value="sales">Sales</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="question">Question</label>
+        <textarea id="question" rows="10" cols="50"></textarea>
+      </div>
+    </form>
 
   </section>
 
