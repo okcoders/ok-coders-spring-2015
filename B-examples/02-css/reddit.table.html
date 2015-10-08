@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<style type="text/css">
+
+		/* Disable underline for all links */
+
+		a {
+			text-decoration: none;
+		}
+
+		/* Pseudo-selectors further filter elements based on their state. */
+		/* Hover asks: "is the mouse pointer over this element right now?" */
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+		/* We can set the font size for the table to a fixed pixel value (px) */
+		/* Then for elements within the we can use sizes relative to that value (em) */
+		/* When you change the table's font-size, the relative sizes adjust accordingly */
+
+		table {
+			font-size: 20px;
+		}
+
+		h1 {
+			font-size: 1.8em;
+		}
+
+		.row {
+			margin-bottom: 10px;
+			height: 80px;
+		}
+
+		.number {
+			width: 30px;
+			text-align: center;
+		}
+
+		.rating {
+			width: 60px;
+			text-align: center;
+		}
+
+		/* Select elements that are contained within other elements using a space */
+		/* The following selector targets only those img tags contained in tags */
+		/* whose class is image-holder */
+
+		.image-holder img {
+			width: 74px;
+		}
+
+		.content {
+			padding-left: 10px;
+		}
+
+		.content h3 {
+			font-size: 0.9em;
+			margin: 0px;
+		}
+
+		.content h3 a {
+			color: blue;
+		}
+
+		.info {
+			font-size: 0.7em;
+			color: #888;
+		}
+
+		.info a {
+			color: #369;
+		}
+
+		.meta {
+			font-size: 0.7em;
+			font-weight: bold;
+			color: #888;
+		}
+
+	</style>
+</head>
+<body>
+
+	<h1>Reddit: The Front Page of the Internet</h1>
+
+	<!-- Normally we would not use tables to control the layout of the page,
+			 but we haven't learned how to use the box model yet -->
+
+	<div class="row">
+		<table>
+			<tr>
+				<td class="number">
+					1
+				</td>
+				<td class="rating">
+					5360
+				</td>
+				<td class="image-holder">
+					<img src="https://b.thumbs.redditmedia.com/KZWsIbnhLB6j-3uzBa9alrV_-JNzBDyhxXZBFVR0EGM.jpg">
+				</td>
+				<td class="content">
+					<h3><a href="http://imgur.com/4GzUiKg">Enter If You Dare</a></h3>
+					<div class="info">submitted 3 hours ago by <a href="https://www.reddit.com/user/LallaBean">LallaBean</a> to <a href="https://www.reddit.com/r/funny/">/r/funny</a></div>
+					<div class="meta">194 comments share</div>
+				</td>
+			</tr>	
+		</table>
+	</div>
+
+	<div class="row">
+		<table>
+			<tr>
+				<td class="number">
+					2
+				</td>
+				<td class="rating">
+					4053
+				</td>
+				<td class="image-holder">
+					<img src="https://b.thumbs.redditmedia.com/fcTy1mmK_3QC3BCTja7OgfMGInioz4FHaPK6n3RJXZc.jpg">
+				</td>
+				<td class="content">
+					<h3><a href="http://i.imgur.com/3ojEVye.gifv">Happy Spaghetti Rat.</a></h3>
+					<div class="info">submitted 5 hours ago by <a href="https://www.reddit.com/user/SAFE4WORKS">SAFE4WORKS</a> to <a href="https://www.reddit.com/r/aww/">/r/aww</a></div>
+					<div class="meta">210 comments share</div>
+				</td>
+			</tr>	
+		</table>
+	</div>
+
+	<div class="row">
+		<table>
+			<tr>
+				<td class="number">
+					3
+				</td>
+				<td class="rating">
+					3464
+				</td>
+				<td class="image-holder">
+					<img src="https://b.thumbs.redditmedia.com/YmYYCNsaTODFDZCVoE0tt40ECTUwcYAI46yZ6MZ9ArI.jpg">
+				</td>
+				<td class="content">
+					<h3><a href="http://i.imgur.com/uwDWt9Z.jpg">This teacher has a new method for teaching anatomy</a></h3>
+					<div class="info">submitted 6 hours ago by <a href="https://www.reddit.com/user/GallowBoob">GallowBoob</a> to <a href="https://www.reddit.com/r/pics/">/r/pics</a></div>
+					<div class="meta">1807 comments share</div>
+				</td>
+			</tr>	
+		</table>
+	</div>
+
+	<div class="row">
+		...
+	</div>
+
+</body>
+</html>
