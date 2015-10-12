@@ -50,7 +50,7 @@ Node executes the line of code for `console.log()` and does in fact print a stri
 But when you define a function its block of code is not executed. Instead, the block of code is set aside and made available to the rest of your program under the name you provided, in this case `foo`.
 
 In a sense, javascript treats this name like a variable name. The technical term for this is *identifier*. Both variable names and function names are identifiers. Confirm this by typing the name of the function into the REPL:
-
+I
 	> foo
 	[Function: foo]
 	
@@ -281,7 +281,7 @@ Because the function returns a value, it can be used in an expression, which its
 
 Remember that node excecutes code from the inside out with parenthesis grouping items. Start with the most deeply nested parenthesis and evaluate that expression, replace it with its result, and use that result in the next expression, until you reach the outermost expression or statement.
 
-Here, `12` evalutes to 12 which is used in the function call to `addTen`. Inside add ten, the parameter `x` takes on the argument's value of `12`, which is used in the return statement so that the function call results in, or evaluates to `32`. 32 is then used in the function call to `console.log`, so that the result of the statement is to print out some number with ten added to it.
+Here, `12` evalutes to 12 which is used in the function call to `addTen`. Inside add ten, the parameter `x` takes on the argument's value of `12`, which is used in the return statement so that the function call results in, or evaluates to `22`. 22 is then used in the function call to `console.log`, so that the result of the statement is to print out some number with ten added to it.
 
 A function can take more than one argument. Simply define it with more than one paramater. Define an add function:
 
