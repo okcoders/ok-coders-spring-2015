@@ -67,9 +67,9 @@ When we call a function that takes a parameters we provide arguments. Arguments 
 ```js
 baz(42);
 	
-quz("hello" + "world");
+qux("hello" + "world");
 ```
-
+I
 Functions *are values*. Functions can take values as inputs. That means we can write functions that take functions as inputs. A function that takes a function as an input is called a *higher order function*. In mathematics these are called *operators*. Define a higher order function like you would any other:
 
 ```js
