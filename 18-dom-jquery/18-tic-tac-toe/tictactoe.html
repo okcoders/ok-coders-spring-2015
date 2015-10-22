@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Tic Tac Toe</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <style type="text/css">
+      
+      /* custom table border styles to add border to the .table styling bootstrap provides */
+      /* we begin with custom css. our page uses a table to represent the tic-tac-toe board, */
+      /* so we style the table to have the right borders. make sure you understand the use */
+      /* of the immediate child select > and the pseudo-selector last-child */
+
+      .table > tbody > tr > td {
+        border-left: 1px solid #ddd;
+      }
+      .table > tbody > tr:last-child {
+        border-bottom: 1px solid #ddd;
+      }
+      .table > tbody > tr > td:last-child {
+        border-right: 1px solid #ddd;
+      }
+
+      /* tic tac toe table sizing */
+      /* we want to exactly control the size of our game board */
+
+      .tic-tac-toe.table {
+        width: 360px;
+      }
+
+      .tic-tac-toe.table > tbody > tr > td {
+        height: 120px;
+        width: 120px;
+        line-height: 100px;
+        text-align: center;
+        font-size: 84px;
+      }
+
+      /* pointer override and don't want the text to be selectable */
+      /* we can control what the mouse looks like when it's over a game square, and we can */
+      /* prevent the user from selecting text -- they can only click */
+
+      .tic-tac-toe.table > tbody > tr > td {
+        cursor: pointer;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      /* advanced css for flashing a color: woah! */
+
+      @-webkit-keyframes highlight {
+        0% {
+            background-color: Yellow;
+            opacity:1;
+        }
+        100% {
+            background-color: #FFFFFF;
+        }
+      }
+        
+      .flash {
+        animation: highlight 200ms ease-in-out;
+        -webkit-transition: highlight 200ms ease-in-out;
+        -moz-transition: highlight 200ms ease-in-out;
+      }
+
+    </style>
+
+    <!-- Note that we have placed the scripts at the bottom of the page -->
+    <!-- This way the page loads and the content displays without having to load the scripts first -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    
+    <!-- Our primary game interface is composed of a table with three rows and three columns -->
+    <!-- We also include an area for game instructions / feedback and a button for resetting -->
+    <!-- the game. Note the use of id's for the info and button links, and especially note the -->
+    <!-- use of the custom data-position attribute for the game board cells. We're going to use -->
+    <!-- that attribute's value to easily link up with the internal game state, which you'll -->
+    <!-- read about below. -->
+
+    <div class="container">
+      <h1>Tic Tac Toe</h1>
+      
+      <p>A strange game. The only winning move is not to play.</p>
+
+      <table class="tic-tac-toe table">
+        <tbody>
+          <tr>
+            <td data-position="00"></td>
+            <td data-position="01"></td>
+            <td data-position="02"></td>
+          </tr>
+          <tr>
+            <td data-position="10"></td>
+            <td data-position="11"></td>
+            <td data-position="12"></td>
+          </tr>
+          <tr>
+            <td data-position="20"></td>
+            <td data-position="21"></td>
+            <td data-position="22"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p id="info" class="text-primary">Turn: Player 1</p>
+
+      <div id="restart">
+        <a href="#" class="btn btn-primary">Start New Game</a>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+      // place all of your code inside the jQuery ready function
+
+      $(function() {
+        
+        // Most applications are composed of data models and views. Data models record the internal
+        // state of the application while views reveal that state to the user and provide a way for
+        // the user to change it. The primary responsibility of application code is then often to keep 
+        // the application state and the views in sync. When the state changes, so too must the view, 
+        // and vice versa.
+
+        // Our application is a game, so we need to maintain a game state for the model, for example,
+        // an internal representation of the game board (does a cell have an X, an O, or is empty), 
+        // and which player's turn it is. We must explicitly keep track of any information needed to 
+        // play the game.
+        
+        // Our application's view is just the html we already have above. We'll need to write code that 
+        // modifies the game state as the user interacts with the view, namely, when a player clicks
+        // on one of the table cells, and then updates the view accordingly, e.g. adds an X or an O. 
+        // We can use jQuery for this.
+
+
+        // Step 1: Set up the application game variables
+        
+        // Our first step is to define the variables we need to manage game state. We will use three.
+        // The matrix is the internal representation of the tic-tac-toe board. Just as the table is a
+        // two dimensional picture of a game board with rows and columns, so too is our matrix. We'll
+        // use what's called a two dimensional array, or an array of arrays, to represent it.
+
+        // Our two dimensional array will use string values to track whether there is an X or O in a spot.
+        // It will use the empty string to indicate that no player has selected that position yet.
+        // For example, the "matrix" board will initially look like this:
+
+        //  [ 
+        //    ["","",""], 
+        //    ["","",""], 
+        //    ["","",""] 
+        //  ];
+
+        // Notice how we have an outer array with the first pair of brackets [], and then inside it three
+        // other arrays that each contain three empty strings. This way we can represent the three rows and
+        // three columns of the board. After the first player places an X in the middle spot, the game state
+        // will look like this:
+
+        //  [ 
+        //    ["","",""], 
+        //    ["","X",""], 
+        //    ["","",""] 
+        //  ];
+
+        // A winning game state for player 1 (X) after a number of moves may look like the following,
+        // with player 1 (X) winning across a diagonal:
+
+        //  [ 
+        //    ["X","","X"], 
+        //    ["O","X",""], 
+        //    ["X","O","O"] 
+        //  ];
+
+        // We can access the value at a particular location in our two dimensional array using brackets.
+        // Recall that we access an item in an array using a bracket with the index we want, for example:
+        // array[0] returns the zeroeth item (the first one because array indices start at 0).
+        // Well we have an array of arrays, so when we access a location in the outermost array, we get
+        // back one of the inner arrays, namely, one of the rows:
+
+        // var row = matrix[0];
+
+        // Row is itself an array with three columns that we'll access with brackets again:
+
+        // var row0column0 = row[0];
+
+        // But we can combine all of this on one line to immediately access a position in the two dimensional
+        // array:
+
+        // var row0column0 = matrix[0][0];
+
+        // Given our winning game state above, what is the value at matrix[0][0]? It is the string "X",
+        // which corresponds to the top left position in the matrix. What is the value at matrix[0][1]? 
+        // It is the empty string "", at the zeroeth row and the one-eth column. And what is the value at 
+        // matrix[1][0] is an "O". Make sure you understand why. 
+
+        // We also need a variable that tracks whose turn it is (player 1 or 2) and another to determine 
+        // whether we're currently playing a game or if the game is over. We'll use the numbers 1 and 2
+        // to tell which player's turn it is, and we'll set gameon to true when we're in the middle of 
+        // playing a game and false when the game is over.
+
+        // Here we're just defining the variables. You don't actually need to set any values. We'll use
+        // functions to manage the values, so keep reading!
+
+        var matrix;
+        var player;
+        var gameon;
+
+        // Step 2: Create a function that resets the game state
+
+        // We're going to break our game into a number of well defined functions that we'll call
+        // as the players plays the game. Our first function resets the game state. That is, it removes
+        // all X's and O's from the game matrix, sets the player to player 1, and sets gameon to true.
+        // Update the matrix, player, and gameon variables accordingly, replacing "undefined" in each
+        // case with the correct value. Refer to the Step 1 instructions for hints on what these values
+        // should look like.
+
+        function resetGameState() {
+          matrix = undefined; // [your code here]
+          player = undefined;
+          gameon = undefined;
+        }
+
+        // Step 3: Create a function that resets the game interface
+
+        // We'll reset the game interface in a separate function. This function should remove all the X's
+        // and O's from the visible game board and set the info text to "Turn: Player 1". Use jQuery to do this.
+        // You only need to make two function calls with jQuery to do both of these things.
+
+        function resetGameInterface() {
+          // [your code here]
+        }
+
+        // Step 4: Create a function that resets the game
+
+        // This function should just call the two functions above.
+
+        function resetGame() {
+          // [your code here]
+        }
+
+        // Step 5: Create a function that sets the player variable to the next player
+
+        // This function updates the current player. If the player is player 1, set the player to player 2,
+        // and if the player is player 2, set it to player 1. Try using the ternary operator to do this. It's
+        // a compact form of an if-else statement. Look it up on google if you're not familiar with it.
+
+        function nextPlayer() {
+          // [your code here]
+        }
+
+        // Step 6: Create a function that checks to see if the game has a winner
+        // Return an "X" or an "O" if that player has won, otherwise return the empty string ""
+
+        // This function determines whether a player has won the game by inspecting the game state for
+        // all possible winning combinations. Recall how a player wins tic-tac-toe: either by placing their
+        // mark across any row or any column, or by placing their mark across one of the two diagonals.
+        // Our code should check the matrix variable to see if any row, column or diagonal contains the
+        // same mark, and if it does, return that mark. Otherwise, it returns the empty string.
+
+        // I've written a check for the rows to help you get started. Make sure you understand what the 
+        // row check is doing and why it's written this way before writing the other checks.
+
+        function gameWinner() {
+          
+          // Check across all rows
+          
+          for ( var r = 0; r <= 2; r++) {
+            if ( matrix[r][0] != "" && matrix[r][0] == matrix[r][1] && matrix[r][0] == matrix[r][2] ) {
+              return matrix[r][0];
+            }
+          }
+
+          // Check across all columns
+
+          // [your code here]
+
+          // Check diagonals
+
+          // [your code here]
+
+          // If we got this far, there is no winner
+
+          // [your code here]
+        }
+
+        // Step 7: Create a function that checks to see if the board is full
+
+        // This function look at the board and determines if all the locations have been used.
+        // If so it returns true, otherwise it returns false. The function ignores whether there 
+        // is a winner. It only cares if all the spots have been taken.
+
+        // We'll use this function along with the gameWinner function to determine if there is a tie.
+
+        function boardFull() {
+          return undefined; // [your code here]
+        }
+
+        // Step 8: Create a function that checks the game state for a winner or a tie
+        // Update the interface to show the winner. If there is no winner and the game isn't over advance to the next player.
+
+        // This function is responsible for determining the state of the game after a player has moved.
+        // It performs all the work of checking if a player has won or if the game has tied. It informs the players
+        // if one of them has won. If a player has not won but the board isn't full, it makes sure the game is ready
+        // for the next player's move. Refer to the function itself for additional instructions
+
+        function checkGameState() {
+          
+          // First find out if there is a winner or the board is full. You've already written functions
+          // to do this, so you just need to call them here.
+
+          var winner = undefined; // [your code here]
+          var full = undefined;
+          
+          // If there is a winner, update the info paragraph to let the players know who won
+          // But if the board is full, update the info paragraph to let them know the game is tied
+
+          // [your code here]
+
+          // If there is a winner or the board is full, set the gameon variable to false. This will
+          // prevent players from making additional moves below.
+          // Otherwise, update the player variable so that it's the next player turn and update the 
+          // info paragraph to let the player's know whose turn it is.
+
+          // [your code here]
+        }
+
+        // Step 9: Create and bind an event handler for a mouseclick in a table cell
+        // This event handler does two things: 
+        // 1. updates the game matrix and the interface to reflect it
+        // 2. Calls a function to see if there's a winner
+
+        // This is the core event handler for a game. It is the function that will be called when a user clicks
+        // in a table cell.
+
+        // Our application is effectively an "event driven application". We don't really do anything until the user 
+        // interacts with it. Many modern applications based on graphical user interfaces (GUIs, like a web page) 
+        // are event driven, waiting for user input before taking action.
+
+        // This function does quite a bit. It's reponsible for updating the internal game state and the game interface,
+        // e.g. placing an "X" or an "O" in the correct spot while ensuring that a player doesn't overwrite a spot
+        // that's already taken, and then checking the game state to see if there's a winner.
+      
+        // I've completed this function for you. You don't need to write any additional code. 
+        // See the comments in the function for details on how it works.
+
+        $('td').click(function() {
+          
+          // First check to see if we're actually in the middle of playing a game, and if we aren't, "bail".
+          // This is why we track the gameon variable. Our click handler is always active, ready to handle a
+          // mouse click on the game board. So we need a way to ignore mouse clicks if we aren't actually
+          // playing the game. What's another way we could have set this behavior up?
+
+          if ( !gameon ) {
+            return;
+          }
+
+          // Get the element we just clicked and log the data-position attribute
+
+          var $el = $(this);
+          console.log( 'table cell clicked:', $el.attr('data-position') );
+
+          // Extract the row and column from the data-position attribute.
+
+          // Often we'll need to include custom data in the interface that relates it to the model. 
+          // When the user clicks on a cell in the table, that doesn't actually tell me anything about which
+          // position in the game matrix I need to update. So I effectively embed an index hint into the table
+          // cell using the custom data-position attribution.
+
+          var row = +($el.attr('data-position').charAt(0));
+          var col = +($el.attr('data-position').charAt(1));
+
+          // Make sure a player hasn't already clicked here, and bail if they have, flashing a game error
+
+          if ( matrix[row][col] != "" ) {
+            $el.addClass('flash');
+            setTimeout(function() { $el.removeClass('flash') }, 600)
+            return;
+          }
+
+          // Set the new character: update the game state and the interface
+
+          // This is where I update the matrix using the row and col values I extracted from the table click,
+          // and then immediately update the visible game board to keep it in sync with the game matrix.
+          // Basically we need to set an "X" or an "O" in two places: the internal game state and the visible interface.
+
+          matrix[row][col] = player == 1 ? "X" : "O";
+          $el.text( matrix[row][col] );
+
+          // Check the game state
+
+          // Now that we've updated the board, we should check to see if there's a winner or if the game has tied
+          // We could have placed all that code directly in this function, but because it constitutes a functional whole,
+          // I went ahead and placed it in its own function. This keeps our code organized and readable.
+
+          checkGameState();
+        });
+
+        // Step 10: Bind a click on the restart button to the resetGame function
+        // You don't need to do anything else here.
+
+        $('#restart').click(resetGame);
+
+        // Final step: Start up a new game
+        // We can actually start a game by calling the resetGame function, which prepares the game state
+        // and the game interface for a new game. You don't need to do anything else here.
+
+        resetGame();
+
+      });
+
+    </script>
+  </body>
+</html>
