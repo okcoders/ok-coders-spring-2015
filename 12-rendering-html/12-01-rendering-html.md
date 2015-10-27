@@ -43,7 +43,7 @@ How can we compose this variable data into otherwise static html, like the head 
 app.get('/heartbeat', function(req, res) {
   var title = "Hearbeat";
   var body = "The heartbeat page is alive";
-  var html = "<html><head><title>" + title + "</title></head><body>" + body + "</body></html>;
+  var html = "<html><head><title>" + title + "</title></head><body>" + body + "</body></html>";
   res.send(html);
 });
 ```
