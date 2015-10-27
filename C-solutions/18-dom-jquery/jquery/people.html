@@ -101,13 +101,22 @@
           $el.addClass('active');
 
           // create the elements we need for this person
+          // we'll have three top level elements: nameHeader, ageSexParagraph, and featuresParagraph
+
+          // to be sure, no sane person would built up such complicated html like this
+          // using jquery. instead we'd use a templating library like the one provided
+          // by underscore.js: http://underscorejs.org/
 
           var name = person.firstName + " " + person.lastName;
           var sex = (person.sex == 0 ? "Male" : "Female");
-           
+          
+          // name header
+
           var $nameHeader = $('<h3/>')
             .addClass('text-primary')
             .text(name);
+
+          // age sex paragraph
 
           var $ageSpan = $('<span/>')
             .text(person.age);
@@ -115,16 +124,14 @@
           var $sexSpan = $('<span/>')
             .text(sex);
 
-          // to be sure, no sane person would built up such complicated html like this
-          // using jquery. instead we'd use a templating library like the one provided
-          // by underscore.js: http://underscorejs.org/
-
           var $ageSexParagraph = $('<p/>')
             .addClass('lead')
             .append("Age: ")
             .append($ageSpan)
             .append(", Sex: ")
             .append($sexSpan);
+
+          // features paragraph
 
           var $eyesSpan = $('<span/>')
             .text(person.eyes);
