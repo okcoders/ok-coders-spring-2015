@@ -148,15 +148,10 @@
             .append($musicSpan)
             .append(" music.");
 
-          // clear out the details tag, we'll cache the element so we don't have to keep
-          // using jquery to fetch it from the dom
+          // clear out the details tag and add our top level elements to it
 
-          var $details = $('#details');
-          $details.empty();
-
-          // add the person's details to it
-
-          $details
+          $('#details')
+            .empty()
             .append($nameHeader)
             .append($ageSexParagraph)
             .append($featuresParagraph);
