@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
+    <title>jQuery People</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -15,11 +15,41 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <style type="text/css">
+      html {
+        margin-top: 60px;
+      }
+
+      #details h3 {
+        margin-top: 5px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+
+    </style>
   </head>
   <body>
-    <h1>People</h1>
 
     <!-- ******* insert html here ******* -->
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-4">
+          <!-- <h3>People</h3> -->
+          <div id="people-group" class="list-group">
+            <!-- <li class="list-group-item">Cras justo odio</li> -->
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <!-- <h3>Details</h3> -->
+          <div id="details"></div>
+        </div>
+      </div>
+
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -33,6 +63,106 @@
     <script type="text/javascript">
       
       // use people array
+
+      $(function() {
+        
+        // build the list of people in the list-group
+        // we'll use the index for tracking, embeding it the data-index attribute
+
+        $.each(people, function(index, person) {
+          var name = person.firstName + " " + person.lastName;
+
+          var $li = $('<a/>')
+            .addClass('list-group-item')
+            .attr('href', '#')
+            .attr('data-index', index)
+            .text(name);
+
+          $('#people-group')
+            .append($li);
+        });
+
+        // only after we've built the list of people can we add an event handler
+
+        $('#people-group a').click(function() {
+          var $el = $(this);
+          
+          // extract the index from the element and use it to get the person's details,
+
+          var index = $el.attr('data-index');
+          var person = people[index];
+
+          console.log(person);
+
+          // remove the selected attribute from all items in the group,
+          // and add it to this one
+
+          $('#people-group a').removeClass('active');
+          $el.addClass('active');
+
+          // create the elements we need for this person
+
+          var name = person.firstName + " " + person.lastName;
+          var sex = (person.sex == 0 ? "Male" : "Female");
+           
+          var $nameHeader = $('<h3/>')
+            .addClass('text-primary')
+            .text(name);
+
+          var $ageSpan = $('<span/>')
+            .text(person.age);
+
+          var $sexSpan = $('<span/>')
+            .text(sex);
+
+          // to be sure, no sane person would built up such complicated html like this
+          // using jquery. instead we'd use a templating library like the one provided
+          // by underscore.js: http://underscorejs.org/
+
+          var $ageSexParagraph = $('<p/>')
+            .addClass('lead')
+            .append("Age: ")
+            .append($ageSpan)
+            .append(", Sex: ")
+            .append($sexSpan);
+
+          var $eyesSpan = $('<span/>')
+            .text(person.eyes);
+
+          var $hairSpan = $('<span/>')
+            .text(person.hair);
+
+          var $musicSpan = $('<strong/>')
+            .addClass('text-success')
+            .text(person.music);
+
+          var $featuresParagraph = $('<p/>')
+            .append(person.firstName)
+            .append(" has ")
+            .append($eyesSpan)
+            .append(" eyes and ")
+            .append($hairSpan)
+            .append(" hair. ")
+            .append(person.firstName)
+            .append(" prefers ")
+            .append($musicSpan)
+            .append(" music.");
+
+          // clear out the details tag, we'll cache the element so we don't have to keep
+          // using jquery to fetch it from the dom
+
+          var $details = $('#details');
+          $details.empty();
+
+          // add the person's details to it
+
+          $details
+            .append($nameHeader)
+            .append($ageSexParagraph)
+            .append($featuresParagraph);
+
+        });
+      });
 
     </script>
 
