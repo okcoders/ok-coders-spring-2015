@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Tic Tac Toe</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <style type="text/css">
+      
+      /* custom table border styles to add border to the .table styling bootstrap provides */
+
+      .table > tbody > tr > td {
+        border-left: 1px solid #ddd;
+      }
+      .table > tbody > tr:last-child {
+        border-bottom: 1px solid #ddd;
+      }
+      .table > tbody > tr > td:last-child {
+        border-right: 1px solid #ddd;
+      }
+
+      /* tic tac toe table sizing */
+
+      .tic-tac-toe.table {
+        width: 360px;
+      }
+
+      .tic-tac-toe.table > tbody > tr > td {
+        height: 120px;
+        width: 120px;
+        line-height: 100px;
+        text-align: center;
+        font-size: 84px;
+      }
+
+      /* pointer override and don't want the text to be selectable */
+
+      .tic-tac-toe.table > tbody > tr > td {
+        cursor: pointer;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      /* advanced css for flashing a color */
+
+      @-webkit-keyframes highlight {
+        0% {
+            background-color: Yellow;
+            opacity:1;
+        }
+        100% {
+            background-color: #FFFFFF;
+        }
+      }
+        
+      .flash {
+        animation: highlight 200ms ease-in-out;
+        -webkit-transition: highlight 200ms ease-in-out;
+        -moz-transition: highlight 200ms ease-in-out;
+      }
+
+    </style>
+
+    <!-- Note that we have placed the scripts at the bottom of the page -->
+    <!-- This way the page loads and the content displays without having to load the scripts first -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    
+    <div class="container">
+      <h1>Tic Tac Toe</h1>
+      
+      <p>A strange game. The only winning move is not to play.</p>
+
+      <table class="tic-tac-toe table">
+        <tbody>
+          <tr>
+            <td data-value="2"></td>
+            <td data-value="7"></td>
+            <td data-value="6"></td>
+          </tr>
+          <tr>
+            <td data-value="9"></td>
+            <td data-value="5"></td>
+            <td data-value="1"></td>
+          </tr>
+          <tr>
+            <td data-value="4"></td>
+            <td data-value="3"></td>
+            <td data-value="8"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p id="info" class="text-primary">Turn: Player 1</p>
+
+      <div id="restart">
+        <a href="#" class="btn btn-primary">Start New Game</a>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+      // ========================================================================================================
+
+      // MAGIC SQUARE TIC TAC TOE
+
+      // A magic square is an arrangement of distinct numbers (i.e. each number is used once), usually integers, 
+      // in a square grid, where the numbers in each row, and in each column, and the numbers in the main and 
+      // secondary diagonals, all add up to the same number: https://en.wikipedia.org/wiki/Magic_square
+
+      // We can use the properties of the magic square to determine a winner in tic-tac-toe. In a 3x3 magic square,
+      // the values across a column, row or diagonal add up to 15. So all we need to do is add the points from a
+      // particular cell to a player's running total and check if one of the player's has 15 points after a move.
+
+      // We can also easily tell of there is a tie. The 3x3 magic square uses all of the numbers from 1..9, so
+      // if the two player's total points is equal to the sum of the numbers 1..9, or 45, then all the cells
+      // have been marked and the game is tied.
+
+      // ========================================================================================================
+
+      // place all of your code inside the jQuery ready function
+
+      $(function() {
+        
+        // Set up the application game variables
+
+        var player1points;
+        var player2points;
+        var player;
+        var gameon;
+
+        // Create a function that resets the game state
+
+        function resetGameState() {
+          player1points = 0;
+          player2points = 0;
+          player = 1;
+          gameon = true;
+        }
+
+        // Create a function that resets the game interface
+
+        function resetGameInterface() {
+          $('.tic-tac-toe.table td').text('');
+          $('#info').text('Turn: Player 1');
+        }
+
+        // Create a function that resets the game: it just calls the two functions above
+
+        function resetGame() {
+          resetGameState();
+          resetGameInterface();
+        }
+
+        // Create a function that sets the player variable to the next player
+
+        function nextPlayer() {
+          player = player == 1 ? 2 : 1;
+        }
+
+        // Create a function that checks to see if the game has a winner
+        // Return an "X" or an "O" if that player has won, otherwise return the empty string ""
+
+        function gameWinner() {
+          if ( player1points == 15 ) {
+            return "X";
+          } else if (player2points == 15 ) {
+            return "O";
+          } else {
+            return "";
+          }
+        }
+
+        // Create a function that checks to see if the board is full
+
+        function boardFull() {
+          return (player1points + player2points == 45);
+        }
+
+        // Create a function that checks the game state for a winner and game tie
+        // Update the interface to show the winner
+        // If there is no winner and the game isn't over advance to the next player
+
+        function checkGameState() {
+          // Check to see if there is a winner or the game has tied
+
+          var winner = gameWinner();
+          var full = boardFull();
+          
+          if ( winner) {
+            $('#info').text("Winner: Player " + (winner == "X" ? "1" : "2"));
+          } else if (full) {
+            $('#info').text("Tie: Game Over");
+          }
+
+          if ( winner || full ) {
+            gameon = false;
+          } else {
+            nextPlayer();
+            $('#info').text("Turn: Player " + player);
+          }
+        }
+
+        // Create and bind an event handler for a mouseclick in a table cell
+        // This event handler does two things: updates the game matrix and the interface to reflect it
+        // It then calls a function to see if there's a winner
+
+        $('td').click(function() {
+          if ( !gameon ) {
+            return;
+          }
+
+          var $el = $(this);
+          console.log( 'table cell clicked:', $el.attr('data-value') );
+
+          // Make sure a player hasn't already clicked here, and bail if they have
+
+          if ( $el.text() != "" ) {
+            $el.addClass('flash');
+            setTimeout(function() { $el.removeClass('flash') }, 600)
+            return;
+          }
+
+          // Extract the point value and add it to the current player's total
+
+          var points = +($el.attr('data-value'));
+
+          switch (player) {
+            case 1:
+              player1points += points;
+              break;
+            case 2:
+              player2points += points;
+              break;
+          }
+
+          // Set the new character: update the game interface
+
+          $el.text( player == 1 ? "X" : "O" );
+
+          // Check the game state
+
+          checkGameState();
+        });
+
+        // Bind a click on the restart button to the resetGame function
+
+        $('#restart').click(resetGame);
+
+        // Start up a new game
+
+        resetGame();
+
+      });
+
+    </script>
+  </body>
+</html>
