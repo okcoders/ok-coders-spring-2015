@@ -41,46 +41,50 @@
       
       // use accounts array
 
-      $.each(accounts, function(index, account) {
-        console.log(account);
+      $(function() {
 
-        // Determine the text for our account type and balance
+        $.each(accounts, function(index, account) {
+          console.log(account);
 
-        var accountText = (account.type == kAccountTypeChecking ? "Checking" : "Savings");
-        var balanceText = '$' + account.balance;
+          // Determine the text for our account type and balance
 
-        // Create a header for the name
+          var accountText = (account.type == kAccountTypeChecking ? "Checking" : "Savings");
+          var balanceText = '$' + account.balance;
 
-        var $nameHeader = $('<h3></h3>')
-            .text(account.name);
-        
-        // Create a span each for the account type and balance
+          // Create a header for the name
 
-        var $typeSpan = $('<span></span>')
-          .text(accountText);
-        
-        var $balanceSpan = $('<span></span>')
-          .addClass('text-primary')
-          .text(balanceText);
+          var $nameHeader = $('<h3></h3>')
+              .text(account.name);
+          
+          // Create a span each for the account type and balance
 
-        // Create a paragraph that will contain the type and balance
+          var $typeSpan = $('<span></span>')
+            .text(accountText);
+          
+          var $balanceSpan = $('<span></span>')
+            .addClass('text-primary')
+            .text(balanceText);
 
-        var $detailsParagraph = $('<p></p>')
-          .append($typeSpan)
-          .append(' : ')
-          .append($balanceSpan);
+          // Create a paragraph that will contain the type and balance
 
-        // Finally create the account div that will contain the other elements
+          var $detailsParagraph = $('<p></p>')
+            .append($typeSpan)
+            .append(' : ')
+            .append($balanceSpan);
 
-        var $accountDiv = $('<div></div>')
-          .addClass('account')
-          .append($nameHeader)
-          .append($detailsParagraph);
+          // Finally create the account div that will contain the other elements
 
-        // And append that div to the accounts container we created in the html above
+          var $accountDiv = $('<div></div>')
+            .addClass('account')
+            .append($nameHeader)
+            .append($detailsParagraph);
 
-        $('#accounts')
-          .append($accountDiv);
+          // And append that div to the accounts container we created in the html above
+
+          $('#accounts')
+            .append($accountDiv);
+        });
+
       });
 
     </script>
