@@ -5,7 +5,7 @@ Node.js is a platform for writing server-side javascript, or javascript that can
 
 Node is also the command line program which runs your javascript code. It implements that lower level functionality like file system access and exposes it to your application in what are known as modules. The node program is also an *interpreter* which is able to turn your plain text javascript file into a running application on your computer.
 
-The node platform is large and we won't be covering all of it in this class by any means. We'll focus on those parts of node that we need to know in order to build web applications. Importantly, we'll emphasize the higher-level design patterns that are common in node such as asynchronous I/O (input/output) and modules. 
+The node platform is large and we won't be covering all of it in this class by any means. We'll focus on those parts of node that we need to know in order to build web applications. Importantly, we'll emphasize the higher-level design patterns that are common in node such as asynchronous I/O (input/output) and modules.
 
 ## References
 
@@ -31,7 +31,7 @@ Asynchronous functions are those which run in the background. When the function 
 
 What makes node so popular is its asynchronous approach to almost all long running operations. And long running is a relative term. For a computer, an operation that takes a hundred milliseconds might be considered long running.
 
-Long running operations are extremely common in web servers and include common *I/O* or *input/output* operations such as reading files from disk and accessing databases. For example, a web server receives a request in the form of someone browsing to a file hosted by the server. The server responds to the request by reading from a file or accessing a database and it typically does so in one of two ways. 
+Long running operations are extremely common in web servers and include common *I/O* or *input/output* operations such as reading files from disk and accessing databases. For example, a web server receives a request in the form of someone browsing to a file hosted by the server. The server responds to the request by reading from a file or accessing a database and it typically does so in one of two ways.
 
 The first option is to perform the operation (read the file, access the database) and wait for it to finish before sending the results back to the browser. This prevents the server from handling new requests in the meantime. If a server receives many requests simultaneously it could take many seconds to handle the most recent ones, leading some of the requests to be dropped or ignored.
 
@@ -150,7 +150,7 @@ Refer to the [Node API Documentation](http://nodejs.org/api/) for information on
 Let's look at another module, the `http` module. Create a new file called "server.js" and import the http module:
 
 ```js
-var fs = require('http');
+var http = require('http');
 ```
 
 The http module includes the functionality needed to create a web server in node. Let's do that. Creating a server is as simple as calling the appropriately named function:
@@ -161,7 +161,7 @@ var server = http.createServer(function (req, res) {
 });
 ```
 
-`createServer()` create a new server instance. It takes a single parameter, a callback function that itself takes two parameters, the *request* and *response* object for the current server operation. 
+`createServer()` create a new server instance. It takes a single parameter, a callback function that itself takes two parameters, the *request* and *response* object for the current server operation.
 
 We'll learn more about http requests and responses in the next lesson. For now it's important to know that the request object has a `url` property that indicates which resource on the server is being requested and that a proper response must have *headers* and *body* content. Headers include information or *metadata* about the response, and the body is composed of text like html or perhaps an image.
 
@@ -211,7 +211,7 @@ First create an "index.html" file and add some html to it. You might try the boo
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-``` 
+```
 
 Now modify server.js first to include the `fs` module. Put it at the top of the file with the http require:
 
@@ -226,7 +226,7 @@ In the server callback, use the `readFile()` function on the `fs` module to read
 var server = http.createServer(function (req, res) {
 	console.log(req.url);
 	fs.readFile('index.html', function(err, data) {
-	 
+
 	});
 });
 ```
@@ -295,7 +295,7 @@ Access the functions as you would on built-in modules with the object dot notati
 
 ```js
 var area = circle.area(10);
-console.log(area); 
+console.log(area);
 ```
 
 Run the program from the command line:
@@ -333,7 +333,7 @@ Note that the exported functions are available under the property name you use o
 
 Application Programming Interfaces (APIs) in node are organized into modules. Modules are like self-contained objects that make functions and data available to other parts of your program.
 
-Use the `exports` object inside a module to make a function available: 
+Use the `exports` object inside a module to make a function available:
 
 ```js
 var PI = Math.PI;
@@ -368,7 +368,7 @@ The two approaches produce the same result.
 
 Interact with the file system, including opening files, creating and writing to files and working with directories.
 
-File system operations are asynchronous by default but most functions include a synchronous counterpart. 
+File system operations are asynchronous by default but most functions include a synchronous counterpart.
 
 ```js
 var fs = require('fs');
