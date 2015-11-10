@@ -135,7 +135,7 @@ Relationships between objects must additionally account for the nature of the re
 
 A one-to-one relationship between two types objects A and B in a model says that *one* object of type A has a relationship with *one* object of type B.
 
-In our example shopping application a customer has a single shopping cart. Now there are collections of customers and collections of shopping carts, but in those collections if we were to pick out a single customer, we could find the single shopping cart that belongs to that customers. Or from the other direction, if we were to pick out a single shopping cart, we could find the single customer who has that shopping cart. One customer, one shoping cart.
+In our example shopping application a customer has a single shopping cart. Now there are collections of customers and collections of shopping carts, but in those collections if we were to pick out a single customer, we could find the single shopping cart that belongs to that customer. Or from the other direction, if we were to pick out a single shopping cart, we could find the single customer who has that shopping cart. One customer, one shoping cart.
 
 For this reason, depending on which perspective you are taking, one-to-one relationships are often called *has-one* and *belongs-to* relationships. A single customer has one shopping cart and a shopping cart belongs to a single customer.
 
@@ -163,7 +163,7 @@ Relationships themselves must be modeled in a data model. How they are modeled d
 
 A data model is a formal representation of the data in a system. It identifies objects, attributes and relationships. But the actual data will typically be stored in a database. We'll be using mongoDB in this class, but an introduction to SQL is illustrative.
 
-SQL style databases like SQL Server, MySQL and SQLite store objects in tables. A table includes a *schema* which identifies the model attributes and their types and then is composed of rows and columns. Each row represents a single actual piece of data in the table and each column corresponds to one of its attributes. It is very much like an excel spreadsheet, with one spreadsheet for each type of object in the data model.
+SQL style databases like SQL Server, MySQL and SQLite store objects in tables. A table includes a *schema* which identifies the model attributes and their types and then is composed of rows and columns. Each row represents a single entry in the table (one object) and each column corresponds to one of its attributes. It is very much like an excel spreadsheet, with one spreadsheet for each type of object in the data model.
 
 A SQL table with three entries for our person model might look like:
 
@@ -253,7 +253,7 @@ In the following example we have three customers and one shopping cart and the s
 </tr>
 </table>
 
-If we were to add more shoping carts, we would have to ensure that the customer id never repeated itself, because one shopping cart can belong to only one customer in this one-to-one model.
+If we were to add more shoping carts, we would have to ensure that the customer id never repeated itself, because a customer can only have one shopping cart in our model.
 
 One-to-many relationships are modeled the same way in a SQL style database. A forein key attribute will refer to the id of a particular object in another table. But the values of the forein keys are allowed to repeat.
 
@@ -315,9 +315,9 @@ In a many-to-many model a separate table is created to hold foreign keys to the 
 </tr>
 </table>
 
-Notice that both the `file id` foreign key and the `tag id` foreign key can be repated. Imagine having particular files and tags with these ids. This table relates the two to one another.
+Notice that both the `file id` foreign key and the `tag id` foreign key can be repeated. Imagine having particular files and tags with these ids. This table relates the two to one another.
 
-Given tables like these and forein keys, SQL then provides a way to `join` the attributes in tables together in order as you fetch particular rows from each one. 
+Given tables like these and foreign keys, SQL then provides a way to `join` the attributes in tables together as you fetch particular rows from each one. 
 
 Importantly for SQL databases, the values in a particular column for a particular row must be a simple data type such as a date, number, boolean or text. A column cannot itself contain another table or complex collection of data points.
 
@@ -325,13 +325,13 @@ Importantly for SQL databases, the values in a particular column for a particula
 
 Instead of tables and rows, document style databases have collections and documents. A collection functions like a table but there are two important differences:
 
-First, a collection does not require that you define a schema in advance for it. The collection will simply adopt itself to whatever data you put in it. SQL tables cannot do this.
+First, a collection does not require that you define a schema in advance for it. The collection will simply adapt itself to whatever data you put in it. SQL tables cannot do this.
 
 Second, a collection supports nested data. In SQL a particular value for a particular entry must be a simple data type. In document style databases, a particular value might be another object or a collection of objects or something more complex. For this reason there is usually more than one way to model relationships in a document style database.
 
-mongoDB, the document database we will be using in this class, stores data as javascript objects. The database uses a more efficient binary representation under the hood, but to us, data really looks like javascript.
+MongoDB, the document database we will be using in this class, stores data as javascript objects. The database uses a more efficient binary representation under the hood, but to us, the data really does look like javascript.
 
-For example, the person table from the SQL example above will just look like an array of objects in mongoDB:
+For example, in MongoDB, the person table from the SQL example above will just look like an array of objects:
 
 **Person**
 
@@ -360,9 +360,11 @@ For example, the person table from the SQL example above will just look like an 
 
 Notice that the "schema" is repeated for each document (or person) in the collection, that is, the names of the object properties. This means that different people can have different collections of properties and it is up to your application code to handle any differences.
 
-Because we can have nested data, relationship modeling changes radically. On the one hand, relationships can be accomplished the same way it is done in SQL. The documents in different collections simply refer to one another by `id`. There is no `join` operation, however, and it will be up to application code to make multiple requests to a database to acquire related data.
+Because we can have nested data, relationship modeling can change significantly. 
 
-On the other hand, relationships can simply be embedded in a document. Consider the customer and shopping cart relationship in the SQL above. That might look like this in a document database:
+Or not. On the one hand, relationships can be accomplished the same way it is done in SQL. The documents in different collections simply refer to one another by `id`. There is no `join` operation, however, and it will be up to application code to make multiple requests to a database to acquire related data.
+
+But on the other hand, relationships can simply be embedded in a document. Consider the customer and shopping cart relationship in the SQL above. That might look like this in a document database:
 
 **Customer**
 
@@ -393,7 +395,7 @@ On the other hand, relationships can simply be embedded in a document. Consider 
 ]
 ```
 
-Notice the third item in this customer collection includes an embedded shopping cart. The attributes in that shopping cart dont include an id or a foreign key id. In a sense the shopping cart object does not exist separately from a customer object. Because it is a one-to-many relationship and is always bound to a single customer, the cart can be embedded or *nested* in the customer object. Document style databases let us model relationships this way.
+Notice the third item in this customer collection includes an embedded shopping cart. The attributes in that shopping cart don't include an id or a foreign key id. In a sense the shopping cart object does not exist separately from a customer object. Because it is a one-to-many relationship and is always bound to a single customer, the cart can be embedded or *nested* in the customer object. Document style databases let us model relationships this way.
 
 A one-to-many relationship could be modeled similarly, with the shopping cart attribute consisting of an array of objects instead of a single object:
 
@@ -401,7 +403,7 @@ A one-to-many relationship could be modeled similarly, with the shopping cart at
 
 ```js
 [
-...
+  ...,
   {
     id: 3,
     firstName: 'Johnny',
@@ -423,12 +425,10 @@ A one-to-many relationship could be modeled similarly, with the shopping cart at
 
 Many-to-many relationships, on the other hand, probably require separate collections for each type of object but might not need an intermediate collection to relate the two. Why not?
 
-There is not necessarily an always right way to store data in a document based data based. The question of whether you should use separate collections for one-to-one and one-to-many relationships or nested data depends on the needs of your applications and your users.
+There is not necessarily a correct way to store data in a document based data based. The question of whether you should use separate collections for one-to-one and one-to-many relationships or nested data depends on the needs of your applications and your users.
 
 ## CRUD and HTTP
 
-If data modeling is the process of identifying the underlying data that your application must represent to the user, of identifying its features and its relationships -- *its form* -- databases allow us to store actual data that comes in that form.
+If data modeling is the process of identifying the underlying data that your application must represent to the user, of identifying its features and its relationships -- *its form*, then databases are what allow us to store actual data that comes in that form. And in order to support the storage of data, databases will allow us to perform the four CRUD operations on the data they store: Create, Retrieve, Update and Delete.
 
-In particular, databases allow us to perform the four CRUD operations on the data they store: Create, Retrieve, Update and Delete.
-
-We'll see that both SQL and document based databases provide a language for performing these kinds of operations, and moreover, that HTTP verbs correspond to them. When we build resoureful routes like we did in previous homework assignments, we are preparing ourselves for perfoming CRUD operations on the underlying data in a sane and consistent way.
+We'll see that both SQL and document based databases provide a language for performing these kinds of operations, and moreover, that HTTP verbs correspond to them. When we build resourceful routes like we did in the previous homework assignments, we are preparing ourselves for perfoming CRUD operations on the underlying data in a sane and consistent way.

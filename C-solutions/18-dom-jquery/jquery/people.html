@@ -89,7 +89,7 @@
           
           // extract the index from the element and use it to get the person's details,
 
-          var index = $el.attr('data-index');
+          var index = +($el.attr('data-index'));
           var person = people[index];
 
           console.log(person);
