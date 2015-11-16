@@ -133,15 +133,13 @@ We're now ready to use mongo from our node application!
 
 Mongoose uses a two step process to define an object that ultimately represents a document in the database. First we must define a schema for the object then we will create an object that associates that schema with a particular collection. 
 
-For those of you familiar with object-oriented programming, this subject object functions like a class with a number of static and instance methods for dealing with common database operations. Even if you aren't familiar with this style of programming, you'll see that the mongoose object makes it easy to create, retrieve, update and delete documents in a collection.
+For those of you familiar with object-oriented programming, this schema object functions like a class with a number of static and instance methods for dealing with common database operations. Even if you aren't familiar with this style of programming, you'll see that the mongoose object makes it easy to create, retrieve, update and delete documents in a collection.
 
 Why do we need to define a schema in advance? Recall that, unlike SQL, mongo itself does not support schemas directly in the database. But we need a way to translate data from the application layer to the database layer, and vice versa.
 
-The schema does this. The schema makes it possible for the mongoose library to map object properties in our node application to attributes on a document actually saved in the database. It then creates special objects any time we retrive documents from the database that have built-in support for further database operations as well as data validation, which we'll see in action in the next chapter.
+The schema does this. The schema makes it possible for the mongoose library to map object properties in our node application to attributes on a document actually saved in the database. It then creates special objects any time we retrieve documents from the database that have built-in support for further database operations as well as data validation, which we'll see in action in the next chapter.
 
-In short when we use mongoose for our model objects -- for our data -- we define a schema and then we define the model object itself.
-
-Let's do this. Modify the *models/post.js* file. Comment out the previous hardcoded data and then first include in the mongoose module:
+Let's define a schema for our a post object. Modify the *models/post.js* file. Comment out the previous hardcoded data and then first include in the mongoose module:
 
 	var mongoose = require('mongoose');
 
@@ -157,7 +155,7 @@ We define a schema by calling `mongoose.Schema` and passing it a javscript objec
 
 In this schema I'm saying that my document will have three properties, a `title`, a `body` and an `author`, and that their respective types will be `String`, `String`, and `Number`. This in fact corresponds to the test data we already have in the posts collection.
 
-But the schema doesn't say anything about which collection is refers to, that is, what kind of document it is modeling. For that we need a model object. The model object takes the name of the collection it operates on and the schema for documents in that collection.
+But the schema doesn't say anything about which collection is refers to, that is, what kind of document it is modeling. For that we need a model object. This is the second part of mongoose's two step process. The model object takes the name of the collection it operates on and the schema for documents in that collection.
 
 Create a model object from this schema:
 
@@ -184,11 +182,11 @@ A Mongoose model object abstracts out the interface to the database into methods
 
 A mongoose model provides access to that underlying functionality with methods on the model object.
 
-We are going to build up the command we'd like to execute on the database using methods on the model like `find`, `findById`, `sort`, `limit`, and so on. We'll then actually execute the command with a final `exec` statement. The `exec` statement will take a callback that is run once the database operation finishes. The callback will always look the same, with an `err` and `result` parameter, although not every operation will actually set a result.
+We will build up the database command we'd like to execute using methods on the model like `find`, `findById`, `sort`, `limit`, and so on. We'll then actually execute the command with a final `exec` statement. The `exec` statement will take a callback that is run once the database operation finishes. The callback will always look the same, with an `err` and `result` parameter, although not every operation will actually set a result.
 
 **Update index route**
 
-Let's see this in action. We access our model from our route handlers, which pull data from the database and pass them to our views for rendering. We were previously using harcoded data and old methods, so we need to update our route handlers to use the new Post model.
+Let's see this in action. We'll use our model from our route handlers. The plan is to have the route handlers pull data from the database and pass them to our views for rendering. We were previously using harcoded data and old methods, so we need to update our route handlers to use the new Post model.
 
 Open the *routes/posts.js* file and in the index route, replace:
 
@@ -203,7 +201,7 @@ with:
 
 Let's take a close look at this. First notice that our call to `res.render` remains identical. But we've moved it inside a function callback. That's the key piece here.
 
-Mongoose models provide a `find` method. The `find` method works very much like the `find` method in the mongo client itself. Call find and pass it a query object for filtering down the documents you want to retrieve.
+Second let's look at how we use the mongoose model. Mongoose models provide a `find` method. The `find` method works very much like the `find` method in the mongo client itself. Call find and pass it a query object for filtering down the documents you want to retrieve.
 
 This call to `Post.find` returns what mongoose labels a query object. We can continue to make modifications to this query object, like adding sort and limit options or even "where" clauses that build up the javascript query object that is ultimately sent to the mongo server (see [queries](http://mongoosejs.com/docs/queries.html) for more info). That is, instead of passing one really complex javascript object to the server, as we saw was possible using the client in the last chapter, we let mongoose construct that object for us by calling methods on the query object.
 
@@ -219,7 +217,7 @@ Let's test this. Restart the node application and visit the `/posts` page. Every
 
 This is the beauty of a well designed MVC (model-view-controller) application. We are able to change one layer or even two layers, for example the model and controller layers, without needing to account for those changes from the view layers. This is also known as *decoupling*..
 
-Similarly, we can now make modifications to the database without needing to account for those changes in node. If you're `mongo` command line client isn't still running, fire it up and make another addition to the posts collection:
+Similarly, we can now make modifications to the database without needing to account for those changes in node. If your `mongo` command line client isn't still running, fire it up and make another addition to the posts collection:
 
 	$ mongo
 	> use blog
