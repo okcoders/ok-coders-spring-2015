@@ -54,15 +54,23 @@
 
           <h1>Posts</h1>
 
-          <!-- template code -->
-          
-          <% posts.forEach( function(post) { %>
-              <div class="post">
-                <h3><a href="/posts/<%= post.id %>"><%= post.title %></a></h3>
-                <span class="author"><%= post.author %></span>
-                <p><%= post.body %></p>
-              </div>
-          <% }) %>
+          <div>
+            <a href="/posts/new">New Post</a>
+          </div>
+
+          <div>
+
+            <!-- template code -->
+            
+            <% posts.forEach( function(post) { %>
+                <div class="post">
+                  <h3><a href="/posts/<%= post.id %>"><%= post.title %></a></h3>
+                  <span class="author"><%= post.author %></span>
+                  <p><%= post.body %></p>
+                </div>
+            <% }) %>
+
+          </div>
 
         </div> <!-- /col-md-8 -->
         <div class="col-md-4">
