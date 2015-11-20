@@ -1,0 +1,17 @@
+
+.post .author {
+  display: inline-block;
+  margin: 8px 0;
+}
+
+.post-links ul {
+  margin: 0;
+  padding: 0;
+}
+
+.post-links ul li {
+  display: inline-block;
+  list-style-type: none;
+  padding: 0;
+  margin: 0 20px 0 0;
+}
